@@ -6,7 +6,14 @@
 /*   By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 16:01:22 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/11/20 16:01:23 by joaosilva        ###   ########.fr       */
+/*   Updated: 2024/11/20 16:11:26 by joaosilva        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/cub3d.h"
+
+void exit_game(t_game *game)
+{
+    free_resources(game);
+    exit(0);
+}

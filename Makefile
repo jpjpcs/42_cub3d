@@ -6,7 +6,7 @@
 #    By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/23 20:32:02 by joaosilva         #+#    #+#              #
-#    Updated: 2024/11/19 13:54:45 by joaosilva        ###   ########.fr        #
+#    Updated: 2024/11/20 17:02:56 by joaosilva        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CFLAGS = -Wall -Wextra -Werror #-O3 #-g #-fsanitize=address
 INCLUDE = -I .
 
 ############  Source files - Sources to objects ###########
-SRC_FILES = main.c init_philosophers_program.c threads.c routine.c eats_utils.c error_exit_free.c utils.c 
+SRC_FILES = main.c setup_game.c setup_textures.c setup_mlx.c config.c map_loader.c validation.c movement_utils.c player_input.c rotation.c exit_game.c free_resources.c print_error.c draw.c raycasting.c textures.c
 SRC_DIR = src/
 SRC = ${addprefix ${SRC_DIR}, ${SRC_FILES}}
 
@@ -45,7 +45,7 @@ OBJS = ${addprefix obj/, ${SRC_FILES:.c=.o}}
 #OBJ_BONUS = $(addsuffix .o, $(SRC_BONUS_FILES))
 
 ############ Header files same folder ###########
-HEADER_FILES = so_long.h
+HEADER_FILES = cub3d.h
 #HEADER_BONUS_FILES = so_long_bonus.h
 HEADER_DIR = include
 HEADER = ${addprefix ${HEADER_DIR}/, ${HEADER_FILES}}
@@ -154,58 +154,55 @@ endif
 	@echo "$(RED)\nObject files removed$(DEF_COLOR)"
 
 
-###remove o so_long
+###remove o cub3d e o cub3d_bonus
 fclean: clean
 	@${RM} ${NAME}
 #removed ${NAME_BONUS} at the above rm
 	@echo "$(RED)\n${NAME} removed$(DEF_COLOR)"
 
-
-
-###shell script para iniciar o jogo
+###shell script for one map
 run:
-	@MAP_COUNT=$$(find maps -maxdepth 1 -type f | wc -l); \
-	read -p "Pick a map, options 0 to $$(($$MAP_COUNT-2)): " MAP_FILE; \
-	if [ -x "so_long_bonus" ]; then \
-		./so_long_bonus maps/$$MAP_FILE.ber; \
-	elif [ ! -x "so_long" ]; then \
-		echo "$(YELLOW)Neither the game so_long nor so_long_bonus was found. Compile the desired game and run again.$(DEF_COLOR)"; \
+	@MAP_COUNT=$$(find maps -maxdepth 1 -type f -name "*.cub" | wc -l); \
+	read -p "Escolha um mapa (0 a $$((MAP_COUNT-1))): " MAP_INDEX; \
+	MAP_FILE=$$(find maps -maxdepth 1 -type f -name "*.cub" | sed -n "$$(($$MAP_INDEX + 1))p"); \
+	if [ -z "$$MAP_FILE" ]; then \
+		echo "$(YELLOW)Mapa inválido. Certifique-se de que o índice está correto.$(DEF_COLOR)"; \
+	elif [ -x "cub3d" ]; then \
+		./cub3d "$$MAP_FILE"; \
 	else \
-		./so_long maps/$$MAP_FILE.ber; \
+		echo "$(RED)O executável 'cub3d' não foi encontrado. Compile o projeto e tente novamente.$(DEF_COLOR)"; \
 	fi
 
-
-
-###shell script para iniciar o jogo
+###shell script for all maps
 runall:
-	@MAP_COUNT=$$(find maps -maxdepth 1 -type f | wc -l); \
-	read -p "Select starting map (0 to $$((MAP_COUNT-2))): " i; \
-	while [ $$i -lt $$MAP_COUNT ]; do \
-		echo "$(CYAN)Running map $$i...$(DEF_COLOR)"; \
-		if [ -x "so_long_bonus" ]; then \
-			output=$$(./so_long_bonus maps/$$i.ber); \
+	@MAP_COUNT=$$(find maps -maxdepth 1 -type f -name "*.cub" | wc -l); \
+	if [ $$MAP_COUNT -eq 0 ]; then \
+		echo "$(YELLOW)Nenhum mapa encontrado na pasta 'maps'.$(DEF_COLOR)"; \
+		exit 1; \
+	fi; \
+	read -p "Selecione o mapa inicial (0 a $$((MAP_COUNT-1))): " START_INDEX; \
+	for i in $$(seq $$START_INDEX $$((MAP_COUNT-1))); do \
+		MAP_FILE=$$(find maps -maxdepth 1 -type f -name "*.cub" | sed -n "$$(($$i + 1))p"); \
+		echo "$(CYAN)Iniciando o mapa $$i: $$MAP_FILE...$(DEF_COLOR)"; \
+		if [ -x "cub3d" ]; then \
+			OUTPUT=$$(./cub3d "$$MAP_FILE"); \
 		else \
-			output=$$(./so_long maps/$$i.ber); \
+			echo "$(RED)O executável 'cub3d' não foi encontrado. Compile o projeto e tente novamente.$(DEF_COLOR)"; \
+			exit 1; \
 		fi; \
-		echo "$$output" | grep -q "Game ended! You have eaten all cheese 🧀🧀🧀 🐁"; \
+		echo "$$OUTPUT"; \
+		echo "$$OUTPUT" | grep -q "Jogo concluído! Parabéns!"; \
 		if [ $$? -eq 0 ]; then \
-			echo "$(CYAN)\nMap $$i completed.$(DEF_COLOR)"; \
-			i=$$(($$i + 1)); \
+			echo "$(GREEN)Mapa $$i concluído com sucesso!$(DEF_COLOR)"; \
+		else \
+			echo "$(YELLOW)O mapa $$i não foi completado.$(DEF_COLOR)"; \
+			read -p "Deseja tentar novamente? (y/n): " CHOICE; \
+			if [ "$$CHOICE" != "y" ]; then \
+				break; \
+			fi; \
 		fi; \
-		echo "$(CYAN)$$output"; \
-		if [ $$i -ge $$MAP_COUNT ]; then \
-			echo "$(CYAN)\nAll maps completed.$(DEF_COLOR)"; \
-			break; \
-		fi; \
-		echo "$(CYAN)\nStarting map $$i.$(DEF_COLOR)"; \
-		read -p "Continue? (y/n): " choice; \
-		if [ $$choice != "y" ]; then \
-			break; \
-		fi; \
-		sleep 1; \
-	done
-
-
+	done; \
+	echo "$(CYAN)Todos os mapas foram executados!$(DEF_COLOR)"
 
 ###o fcleansoft existe para uma versão soft da compilação, sem incluir a biblioteca, senão além de demorar muito, gastamos recursos desnecessariamente.
 fcleansoft:
@@ -233,11 +230,11 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
     DOWNLOAD_CMD := wget
     TAR_CMD := tar -xzf
-    MINILIBX_URL := https://cdn.intra.42.fr/document/document/21300/minilibx-linux.tgz
+    MINILIBX_URL := https://cdn.intra.42.fr/document/document/25858/minilibx-linux.tgz 
 else
     DOWNLOAD_CMD := curl -LO
     TAR_CMD := tar -xzf
-    MINILIBX_URL := https://cdn.intra.42.fr/document/document/21301/minilibx_opengl.tgz
+    MINILIBX_URL := https://cdn.intra.42.fr/document/document/25859/minilibx_opengl.tgz
 
 endif
 

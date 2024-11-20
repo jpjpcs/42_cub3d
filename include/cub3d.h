@@ -6,7 +6,7 @@
 /*   By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:45:17 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/11/20 16:04:01 by joaosilva        ###   ########.fr       */
+/*   Updated: 2024/11/20 17:04:55 by joaosilva        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <math.h>
 //# include "../minilibx-linux/mlx.h"
-# include "../libft/libft.h"
+# include "../Libft/libft.h"
 
 // ------------ Macros ------------
 # define SCREEN_WIDTH 1024
@@ -93,11 +93,44 @@ typedef struct s_game
 } t_game;
 
 // ------------ Prototypes ------------
-void init_game(t_game *game);
-void render_game(t_game *game);
-void handle_keys(t_game *game);
-void move_player(t_game *game);
-void load_textures(t_game *game);
+//void init_game(t_game *game);
+//void render_game(t_game *game);
+//void handle_keys(t_game *game);
+//void move_player(t_game *game);
+//void load_textures(t_game *game);
+
+//Parser
+void parse_config(t_game *game, char *file);
+void load_map(t_game *game, char *file);
+int validate_map(t_game *game);
+int validate_config(t_game *game);
+
+//Init
+void setup_game(t_game *game);
+void setup_mlx(t_game *game);
+void setup_textures(t_game *game);
+
+// ------------ Key Hooks ------------
+int key_press(int keycode, t_game *game);
+int key_release(int keycode, t_game *game);
+
+//Movement
+void move_forward(t_game *game);
+void move_backward(t_game *game);
+void strafe_left(t_game *game);
+void strafe_right(t_game *game);
+void rotate_left(t_game *game);
+void rotate_right(t_game *game);
+
+//Rendering
+void draw(t_game *game);
+void raycast(t_game *game);
+void draw_textures(t_game *game);
+
+//Cleanup
+void free_resources(t_game *game);
+void exit_game(t_game *game);
+int print_error(const char *msg);
 
 // ------------ Error Handling ------------
 int error_exit(const char *msg);

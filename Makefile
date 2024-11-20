@@ -3,21 +3,30 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jode-jes <jode-jes@student.42.fr>          +#+  +:+       +#+         #
+#    By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/23 20:32:02 by joaosilva         #+#    #+#              #
-#    Updated: 2024/03/28 11:28:05 by jode-jes         ###   ########.fr        #
+#    Updated: 2024/11/19 13:54:45 by joaosilva        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #######################  Variables ######################
-NAME = so_long
+NAME = cub3d
 # NAME_BONUS = so_long_bonus
+# Other Variables
+CC = cc
+RM = rm -f
+CFLAGS = -Wall -Wextra -Werror #-O3 #-g #-fsanitize=address
+INCLUDE = -I .
 
-############  Mandatory files - Sources to objects ###########
-SRC_FILES = main.c check_map.c exit.c init_game.c key_press.c so_long.c
-SRC_DIR = src
-SRC = ${addprefix ${SRC_DIR}/, ${SRC_FILES}}
+############  Source files - Sources to objects ###########
+SRC_FILES = main.c init_philosophers_program.c threads.c routine.c eats_utils.c error_exit_free.c utils.c 
+SRC_DIR = src/
+SRC = ${addprefix ${SRC_DIR}, ${SRC_FILES}}
+
+#SRC_FILES = main.c check_map.c exit.c init_game.c key_press.c so_long.c
+#SRC_DIR = src
+#SRC = ${addprefix ${SRC_DIR}/, ${SRC_FILES}}
 # SRC = $(addsuffix .c, $(SRC_FILES))
 ############  Bonus files ###########
 #SRC_BONUS_FILES = main_bonus.c check_map_bonus.c exit_bonus.c \
@@ -49,12 +58,6 @@ LIBFT = -L Libft_obj -lft
 
 ###GNL
 GET_NEXT_LINE = -L get_next_line_obj -lgnl
-
-# Other Variables
-INCLUDE = -I .
-CC = cc
-RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -O3 -g #-fsanitize=address
 
 # Variáveis/Caminho para MiniLibX no Linux
 #MINILIBX_LINUX = -L minilibx-linux -lmlx -lXext -lX11

@@ -6,7 +6,7 @@
 /*   By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 10:00:31 by jode-jes          #+#    #+#             */
-/*   Updated: 2024/03/12 19:30:18 by joaosilva        ###   ########.fr       */
+/*   Updated: 2024/11/19 13:39:09 by joaosilva        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <ctype.h>
 # include <stdbool.h>
 # include <stddef.h>
+# include <fcntl.h> //GNL
 
 typedef struct s_list
 {
@@ -94,6 +95,25 @@ int		print_nbr(int n, int *flags);
 int		print_hex(unsigned int nbr, int *flags, const char c);
 int		print_unsigned(unsigned int n, int *flags);
 int		print_pointer(unsigned long long addr, int *flags);
+
+// GNL functions
+
+char	*get_next_line(int fd);
+char	*ft_read_line(int fd, char *str);
+char	*ft_gnl_strchr(char *buffer, int target);
+char	*ft_gnl_strjoin(char *s1, char const *s2);
+char	*ft_get_line(char *buffer);
+char	*ft_new_line(char *buffer);
+size_t	ft_gnl_strlen(const char *str);
+
+//GNL
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
+
+# ifndef MAX_FILES
+#  define MAX_FILES 500
+# endif
 
 // Colors
 

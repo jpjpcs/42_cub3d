@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   movement_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+        */
+/*   By: jode-jes <jode-jes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 16:09:03 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/11/20 16:09:10 by joaosilva        ###   ########.fr       */
+/*   Updated: 2024/11/21 13:15:14 by jode-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 void move_forward(t_game *game)
 {

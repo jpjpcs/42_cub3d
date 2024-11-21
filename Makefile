@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+         #
+#    By: jode-jes <jode-jes@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/23 20:32:02 by joaosilva         #+#    #+#              #
-#    Updated: 2024/11/20 17:02:56 by joaosilva        ###   ########.fr        #
+#    Updated: 2024/11/21 17:46:13 by jode-jes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,33 +16,23 @@ NAME = cub3d
 # Other Variables
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror #-O3 #-g #-fsanitize=address
-INCLUDE = -I .
+CFLAGS = -Wall -Wextra -Werror #-O3 #-g #-fsanitize=address #-pthread ead #-fsanitize=add
+INCLUDE = -I cub3d/include
 
 ############  Source files - Sources to objects ###########
-SRC_FILES = main.c setup_game.c setup_textures.c setup_mlx.c config.c map_loader.c validation.c movement_utils.c player_input.c rotation.c exit_game.c free_resources.c print_error.c draw.c raycasting.c textures.c
+SRC_FILES = main.c init/setup_game.c init/setup_textures.c init/setup_mlx.c \
+parser/checkers.c parser/map_loader.c parser/validation.c \
+movement/movement_utils.c movement/player_input.c movement/rotation.c \
+exit_error/exit_free_game.c exit_error/print_error.c \
+rendering/draw.c rendering/raycasting.c rendering/textures.c
 SRC_DIR = src/
 SRC = ${addprefix ${SRC_DIR}, ${SRC_FILES}}
-
-#SRC_FILES = main.c check_map.c exit.c init_game.c key_press.c so_long.c
-#SRC_DIR = src
-#SRC = ${addprefix ${SRC_DIR}/, ${SRC_FILES}}
 # SRC = $(addsuffix .c, $(SRC_FILES))
-############  Bonus files ###########
-#SRC_BONUS_FILES = main_bonus.c check_map_bonus.c exit_bonus.c \
-					init_enemy_bonus.c init_game_bonus.c key_press_bonus.c \
-					render_move_bonus.c game_loop_bonus.c eric_trump_bonus.c
-#SRC_BONUS_DIR = src_bonus
-#SRC_BONUS = ${addprefix ${SRC_BONUS_DIR}/, ${SRC_BONUS_FILES}}
-#SRC_BONUS = $(addsuffix .c, $(SRC_BONUS_FILES))
-
-
 
 ########### Object files ###########
 OBJS = ${addprefix obj/, ${SRC_FILES:.c=.o}}
-#OBJ = $(addsuffix .o, $(SRC_FILES))
-#OBJS_BONUS = ${addprefix obj_bonus/, ${SRC_BONUS_FILES:.c=.o}}
-#OBJ_BONUS = $(addsuffix .o, $(SRC_BONUS_FILES))
+#OBJ_DIR = objects/
+#OBJS = ${addprefix ${OBJ_DIR}, ${SRC_FILES:.c=.o}}
 
 ############ Header files same folder ###########
 HEADER_FILES = cub3d.h
@@ -51,13 +41,11 @@ HEADER_DIR = include
 HEADER = ${addprefix ${HEADER_DIR}/, ${HEADER_FILES}}
 #HEADER_BONUS = ${addprefix ${HEADER_DIR}/, ${HEADER_BONUS_FILES}}
 
-
-
 ###Libft
 LIBFT = -L Libft_obj -lft
 
 ###GNL
-GET_NEXT_LINE = -L get_next_line_obj -lgnl
+#GET_NEXT_LINE = -L get_next_line_obj -lgnl
 
 # Variáveis/Caminho para MiniLibX no Linux
 #MINILIBX_LINUX = -L minilibx-linux -lmlx -lXext -lX11
@@ -86,13 +74,12 @@ else
     $(error Sistema operacional não suportado: $(UNAME_S))
 endif
 
-
 #######################   Rules ######################
 ### cria o so_long. congrega todos os ficheiros objetos, o header, o libft e a minilibx.
 all: ${NAME}
 ${NAME}: ${OBJS} ${HEADER}
 	@make -s -C Libft
-	@make -s -C get_next_line
+#@make -s -C get_next_line
 ifeq ($(UNAME_S),Linux)
 	@make -s -C minilibx-linux
 else 
@@ -101,9 +88,8 @@ else
 	@make -C minilibx_opengl_20191021
 	@echo "$(GREEN)\nCompilando MiniLibX para macOS...$(DEF_COLOR)"
 endif
-	@${CC} ${CFLAGS} ${INCLUDE} -o ${NAME} ${OBJS} ${LIBFT} ${GET_NEXT_LINE} ${MINILIBX}
+	@${CC} ${CFLAGS} ${INCLUDE} -o ${NAME} ${OBJS} ${LIBFT} ${MINILIBX}
 	@echo "$(GREEN)\n${NAME} created$(DEF_COLOR)"
-
 
 ###criar a diretoria obj e cria os objetos a partir dos ficheiros .c
 obj/%.o: ${SRC_DIR}/%.c ${HEADER}
@@ -111,34 +97,9 @@ obj/%.o: ${SRC_DIR}/%.c ${HEADER}
 	@${CC} ${CFLAGS} ${INCLUDE} -c $< -o $@
 	@echo "$(GRAY) Object $(basename $(notdir $@)) files created with success$(DEF_COLOR)"
 
-#bonus: ${NAME_BONUS}
-
-#${NAME_BONUS}: ${OBJS_BONUS} ${HEADER_BONUS}
-#	@make -s -C Libft
-#	@make -s -C minilibx-linux
-#	@${CC} ${CFLAGS} ${INCLUDE} -o ${NAME_BONUS} ${OBJS_BONUS} ${LIBFT} ${MINILIBX}
-#	@echo "\n${NAME_BONUS} created"
-
-#obj_bonus/%.o: ${SRC_BONUS_DIR}/%.c
-#	@mkdir -p obj_bonus
-#	@${CC} ${CFLAGS} ${INCLUDE} -c $< -o $@
-#	@echo "\nObject files created"
-
-
-
-### remove os objetos e os objetos do bonus, assim como a pasta que os recebeu.
-#clean:
-#	@make fclean -s -C Libft
-#	@make clean -s -C minilibx-linux
-#	@${RM} ${OBJS}
-#removed ${OBJS_BONUS} at the above rm
-#	@${RM} -r obj
-#removed obj_bonus at the above rm
-#	@echo "$(RED)\nObject files removed$(DEF_COLOR)"
-
 clean:
 	@make fclean -s -C Libft
-	@make fclean -s -C get_next_line
+#@make fclean -s -C get_next_line
 ifeq ($(UNAME_S),Linux)
 #	@make clean -s -C minilibx-linux
 	@${RM} -r minilibx-linux
@@ -214,8 +175,6 @@ fcleansoft:
 	@${RM} ${NAME}
 #removed ${NAME_BONUS} at the above rm
 	@echo "$(RED)\n${NAME} removed$(DEF_COLOR)"
-
-
 
 ###faz download automático da biblioteca, diretamente da página do intra.
 #downloadminilibx:

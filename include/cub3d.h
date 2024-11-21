@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+        */
+/*   By: jode-jes <jode-jes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:45:17 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/11/20 18:36:10 by joaosilva        ###   ########.fr       */
+/*   Updated: 2024/11/21 18:26:06 by jode-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@
 #  include "../minilibx_opengl_20191021/mlx.h"
 # endif
 
+// ------------ Tiles ------------
+# define TILES "01NSEW"
+# define O_XPM "textures/1.xpm"
+# define Z_XPM "textures/0.xpm"
+# define N_XPM "textures/N.xpm"
+# define S_XPM "textures/S.xpm"
+# define E_XPM "textures/E.xpm"
+# define W_XPM "textures/W.xpm"
+
 // ------------ Macros ------------
 # define SCREEN_WIDTH 1024
 # define SCREEN_HEIGHT 768
@@ -33,12 +42,21 @@
 
 // ------------ Structs ------------
 
+typedef enum e_tile
+{
+	WALL = '1',
+	SPACE = '0',
+	EXIT = 'E',
+	COLLECT = 'C',
+	PLAYER = 'P',
+}				t_tile;
+
 // Map struct
 typedef struct s_map 
 {
-    char **data; // Map data: 2D array of characters. Each character represents a different element of the map.
-    int map_width;
-    int map_height;
+    char **grid; // Map data: 2D array of characters. Each character represents a different element of the map.
+    int map_rows; // map_width
+    int map_cols; // map_height
 } t_map;
 
 // Keys struct
@@ -49,6 +67,8 @@ typedef struct s_keys
     int left;
     int right;
     int esc;
+    int rotate_left;
+    int rotate_right;
 } t_keys;
 
 // Texture struct
@@ -60,11 +80,17 @@ typedef struct s_texture
     int height;
 } t_texture;
 
-// Player struct
-typedef struct s_player 
+// Position
+typedef struct s_point
 {
     double pos_x; // Player´s X position
     double pos_y; // Player´s Y position
+} t_point;
+
+// Player struct
+typedef struct s_player 
+{
+    t_point current_pos;
     double dir_x; // Player´s direction vector X
     double dir_y; // Player´s direction vector Y
     double plane_x; // Player´s camera plane X
@@ -91,7 +117,9 @@ typedef struct s_game
     t_keys keys; // Keys controls: up, down, left, right arrows and ESC. 
     
     // Textures
-    t_texture textures[4]; // Texture for the 4 directions for walls and sprites: north, south, east, west.
+    t_texture textures[4]; // Texture for the 4 directions for walls and sprites: north, south, east, west, amd the player.
+    //t_texture		img_walls;
+	//t_texture		img_player;
     
     // Screen size
     int screen_width; // Screen/Window width and height.
@@ -106,7 +134,8 @@ typedef struct s_game
 //void load_textures(t_game *game);
 
 //Parser
-void parse_config(t_game *game, char *file);
+void check_file(int argc, char *file_name);
+void check_map(char *file_name);
 void load_map(t_game *game, char *file);
 int validate_map(t_game *game);
 int validate_config(t_game *game);
@@ -137,6 +166,7 @@ void draw_textures(t_game *game);
 void free_resources(t_game *game);
 void exit_game(t_game *game);
 int print_error(const char *msg);
+void exit_error (t_game *game, char *msg);
 
 // ------------ Error Handling ------------
 int error_exit(const char *msg);

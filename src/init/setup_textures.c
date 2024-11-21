@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   setup_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+        */
+/*   By: jode-jes <jode-jes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 15:57:55 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/11/20 16:04:32 by joaosilva        ###   ########.fr       */
+/*   Updated: 2024/11/21 13:13:50 by jode-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 void setup_textures(t_game *game)
 {

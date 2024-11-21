@@ -6,7 +6,7 @@
 /*   By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:45:17 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/11/20 17:04:55 by joaosilva        ###   ########.fr       */
+/*   Updated: 2024/11/20 18:36:10 by joaosilva        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 # include <math.h>
 //# include "../minilibx-linux/mlx.h"
 # include "../Libft/libft.h"
+
+# ifdef __linux__
+#  include "../minilibx-linux/mlx.h"
+# elif defined(__APPLE__)
+#  include "../minilibx_opengl_20191021/mlx.h"
+# endif
 
 // ------------ Macros ------------
 # define SCREEN_WIDTH 1024
@@ -127,7 +133,7 @@ void draw(t_game *game);
 void raycast(t_game *game);
 void draw_textures(t_game *game);
 
-//Cleanup
+//Cleanup - exit/error
 void free_resources(t_game *game);
 void exit_game(t_game *game);
 int print_error(const char *msg);

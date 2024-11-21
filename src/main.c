@@ -6,7 +6,7 @@
 /*   By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:08:01 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/11/20 17:02:14 by joaosilva        ###   ########.fr       */
+/*   Updated: 2024/11/20 19:02:44 by joaosilva        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,19 @@ int game_loop(t_game *game)
         move_forward(game);
     if (game->keys.down)
         move_backward(game);
+    /* if (game->keys.left)
+        turn_left(game);
+    if (game->keys.right)
+        turn_right(game); */
     if (game->keys.left)
         strafe_left(game);
     if (game->keys.right)
         strafe_right(game);
+   /*  if (game->keys.rotate_left)
+        rotate_left(game);
+    if (game->keys.rotate_right)
+        rotate_right(game);
+     */
     if (game->keys.esc)
         exit_game(game);
     draw(game);
@@ -50,10 +59,10 @@ void start_game_loop(t_game *game)
     mlx_loop_hook(game->mlx, game_loop, game);
     mlx_loop(game->mlx);
 }
-
+// Instead of ft_bzero(game, sizeof(t_game)); // I could also use memset or calloc or just game = (t_game){0};
 static void	init_game(t_game *game, char *file)
 {
-    ft_bzero(game, sizeof(t_game));
+    ft_bzero(game, sizeof(t_game)); // I could also use memset or calloc or just game = (t_game){0};
     parse_config(game, file);
     setup_game(game);
     setup_mlx(game);
@@ -64,8 +73,7 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	if (argc != 2)
-		return (print_error("Usage: ./cub3d <map.cub>"));
+	checkers(argc, argv);
 	init_game(&game, argv[1]);
 	start_game_loop(&game);
 	cleanup_game(&game);

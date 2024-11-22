@@ -6,7 +6,7 @@
 /*   By: jode-jes <jode-jes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:45:17 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/11/21 18:26:06 by jode-jes         ###   ########.fr       */
+/*   Updated: 2024/11/22 12:58:09 by jode-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,18 @@ typedef enum e_tile
 {
 	WALL = '1',
 	SPACE = '0',
-	EXIT = 'E',
-	COLLECT = 'C',
-	PLAYER = 'P',
+	NORTH = 'N',
+	SOUTH = 'S',
+	WEST = 'W',
+    EAST = 'E',
 }				t_tile;
 
 // Map struct
 typedef struct s_map 
 {
     char **grid; // Map data: 2D array of characters. Each character represents a different element of the map.
-    int map_rows; // map_width
-    int map_cols; // map_height
+    int map_rows; // map_height 
+    int map_cols; // map_width
 } t_map;
 
 // Keys struct
@@ -80,17 +81,11 @@ typedef struct s_texture
     int height;
 } t_texture;
 
-// Position
-typedef struct s_point
-{
-    double pos_x; // Player´s X position
-    double pos_y; // Player´s Y position
-} t_point;
-
 // Player struct
 typedef struct s_player 
 {
-    t_point current_pos;
+    double x; // Player´s X position
+    double y; // Player´s Y position
     double dir_x; // Player´s direction vector X
     double dir_y; // Player´s direction vector Y
     double plane_x; // Player´s camera plane X

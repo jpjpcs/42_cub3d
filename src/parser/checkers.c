@@ -6,7 +6,7 @@
 /*   By: jode-jes <jode-jes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:42:01 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/11/21 18:30:38 by jode-jes         ###   ########.fr       */
+/*   Updated: 2024/11/22 13:00:42 by jode-jes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,16 +128,23 @@ int load_config(t_game *game, const char *config_file)
 			exit_error(game, "Map is not surrounded by walls.");
 } */
 
-static int	check_walls_floodfill(t_game *game, t_point current_pos, char **grid)
+int	check_walls_floodfill(t_game *game, char **map, const int x, const int y)
 {
-	if (grid[current_pos.pos_y][current_pos.pos_x] == WALL)
-		return (0);
-	grid[current_pos.pos_y][current_pos.pos_x] = WALL;
-    check_walls_floodfill(game, (t_point){current_pos.pos_x, current.pos_y - 1}, grid);
-	check_walls_floodfill(game, (t_point){current_pos.pos_x, current.pos_y + 1}, grid);
-	check_walls_floodfill(game, (t_point){current_pos.pos_x - 1, current.pos_y}, grid);
-	check_walls_floodfill(game, (t_point){current_pos.pos_x + 1, current.pos_y}, grid);
-	return (1);
+	if (x < 0 || y < 0 || y >= game->map.height
+		|| x >= (int)ft_strlen(map[y]) || map[y][x] == 32)
+	{
+		printf("Invalid Map(Not Wall Closed)\n");
+		free_double_pointer_array(map);
+		ft_quit_game(game);
+	}
+	if (map[y][x] == '1')
+		return (1);
+	map[y][x] = '1';
+	check_walls_floodfill(game, map, x + 1, y);
+	check_walls_floodfill(game, map, x - 1, y);
+	check_walls_floodfill(game, map, x, y + 1);
+	check_walls_floodfill(game, map, x, y - 1);
+	return (0);
 }
 
 void check_map(char *file_name)
@@ -156,11 +163,11 @@ void check_map(char *file_name)
 		grid[i] = ft_strdup(game->map.grid[i]);
 		if (!grid[i])
 		{
-			free_map(grid);
+			//free_map(grid);
 			exit_error(game, "Couldn't allocate memory.");
 		}
 	}
-    valid_map = check_walls_floodfill (file_name, game->player.current_pos, grid);
+    valid_map = check_walls_floodfill (game, grid, game->player.y, game->player.x);
     if (!valid_map)
 		exit_error(game, "Map has invalid path.");
     check_textures (file_name); //check color is inside 0-255 RGB.

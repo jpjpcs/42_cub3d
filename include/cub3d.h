@@ -20,7 +20,7 @@
 # include "../Libft/libft.h"
 
 # ifdef __linux__
-#  include "../minilibx-linux/mlx.h"
+//#  include "../minilibx-linux/mlx.h"   //temp disabled because of an error
 # elif defined(__APPLE__)
 #  include "../minilibx_opengl_20191021/mlx.h"
 # endif
@@ -86,6 +86,8 @@ typedef struct s_player
 {
     double x; // Player´s X position
     double y; // Player´s Y position
+    double new_x; // Player's X position + Step
+    double new_y; // Player's Y position + Step
     double dir_x; // Player´s direction vector X
     double dir_y; // Player´s direction vector Y
     double plane_x; // Player´s camera plane X

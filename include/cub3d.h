@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jode-jes <jode-jes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:45:17 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/11/22 12:58:09 by jode-jes         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:58:13 by rcruz-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,41 @@ typedef struct s_texture
     int height;
 } t_texture;
 
+//Draw calculations
+typedef struct s_draw
+{
+    int start;
+    int end;
+    int line_height;
+    double step;
+    double pos;
+} t_draw;
+
+//Wall calculations
+typedef struct s_wall_calc
+{
+    double camera_x;
+    int x;
+    int map_x;
+    int map_y;
+} t_wall_calc;
+
+//Ray data
+typedef struct s_ray
+{
+    double dir_x; //ray->direction of x
+    double dir_y; //ray->direction of y
+    double side_dist_x; // Distance to the first vertical line the ray hits
+    double side_dist_y; // Distance to the first horizontal line the ray hits
+    double delta_dist_x;// Distance from one vertical line to the next
+    double delta_dist_y;// Distance from one horizontal line to the next
+    double perp_wall_dist; //Ray parallel to the player's direction ray
+    int step_x; //1 if positive, -1 if negative
+    int step_y; //1 if positive, -1 if negative
+    int hit;    //Position where the ray hit the wall
+    int side;   //Which side did the ray hit the wall
+} t_ray;
+
 // Player struct
 typedef struct s_player 
 {
@@ -109,6 +144,15 @@ typedef struct s_game
     
     // Players properties
     t_player player; // Player´s information: position, direction, etc
+
+    // Ray data
+    t_ray ray;
+
+    // Draw data
+    t_draw draw;
+    
+    //Wall calculations
+    t_wall_calc wall_calc;
     
     // Game controls
     t_keys keys; // Keys controls: up, down, left, right arrows and ESC. 
@@ -157,7 +201,7 @@ void rotate_right(t_game *game);
 //Rendering
 void draw(t_game *game);
 void raycast(t_game *game);
-void draw_textures(t_game *game);
+static void dda_calculations(t_game *game);
 
 //Cleanup - exit/error
 void free_resources(t_game *game);

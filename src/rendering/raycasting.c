@@ -46,13 +46,13 @@ void raycast(t_game *game)
 
     horizontal_pixels = 0;
     was_key_pressed(game);
-    while (game->screen_width > horizontal_pixels)
+    while (game->screen_width > horizontal_pixels++)
     {
         init_raycast(game, horizontal_pixels);
         init_dda(game);
         dda_calculations(game);
-        draw(game);
+        draw(game, horizontal_pixels);
     }
-    //mlx_put_image_to_window(game->mlx, game->win, game->screen.img, 0, 0);
+    mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0); // NOT SURE ABOUT THIS ONE
     return 0;
 }

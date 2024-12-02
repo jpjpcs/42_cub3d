@@ -39,6 +39,8 @@
 # define SCREEN_HEIGHT 768
 # define MOVE_SPEED 0.1
 # define ROT_SPEED 0.05
+# define TEXTURE_WIDTH 64 //change this value according to the texture width or use game->texture.width
+# define TEXTURE_HEIGHT 64
 
 // ------------ Structs ------------
 
@@ -52,12 +54,20 @@ typedef enum e_tile
     EAST = 'E',
 }				t_tile;
 
+// 2d grid struct
+typedef struct s_2d_grid
+{
+    int x;
+    int y;
+} t_2d_grid;
+
 // Map struct
 typedef struct s_map 
 {
     char **grid; // Map data: 2D array of characters. Each character represents a different element of the map.
     int map_rows; // map_height 
     int map_cols; // map_width
+    t_2d_grid checker; //which grid
 } t_map;
 
 // Keys struct
@@ -114,6 +124,9 @@ typedef struct s_ray
     int step_y; //1 if positive, -1 if negative
     int hit;    //Position where the ray hit the wall
     int side;   //Which side did the ray hit the wall
+    double  camera_x; //[-1, 1] // -1 is the leftmost side of the screen
+    int     reached_wall; //if pos += delta as touched a wall
+    int     side; //side of the wall that was hit
 } t_ray;
 
 // Player struct
@@ -197,6 +210,8 @@ void strafe_left(t_game *game);
 void strafe_right(t_game *game);
 void rotate_left(t_game *game);
 void rotate_right(t_game *game);
+
+int was_key_pressed(t_game *game);
 
 //Rendering
 void draw(t_game *game);

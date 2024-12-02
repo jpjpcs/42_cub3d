@@ -85,10 +85,13 @@ typedef struct s_keys
 // Texture struct
 typedef struct s_texture 
 {
-    void *img; // Image of the texture itself.
-    //char *addr;
+    void *img; // Image of the texture itself.                                           // Or color
+    char *addr;                                                                          //uncomment
     int width;
     int height;
+    int bits_per_pixel;                                                                  //added 2/12
+    int endian;                                                                          //added 2/12
+    int len;
 } t_texture;
 
 //Draw calculations
@@ -178,6 +181,9 @@ typedef struct s_game
     // Screen size
     int screen_width; // Screen/Window width and height.
     int screen_height;
+
+    //int floor_color;   //JUST TO AVOID ERROR
+    //int ceiling_color; //JUST TO AVOID ERROR
 } t_game;
 
 // ------------ Prototypes ------------

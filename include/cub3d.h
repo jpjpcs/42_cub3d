@@ -101,6 +101,13 @@ typedef struct s_draw
     double pos;
 } t_draw;
 
+//background colours AKA Ceiling and Floor textures
+typedef struct s_colors
+{
+    ceiling,
+    floor
+} t_colors;
+
 //Wall calculations
 typedef struct s_wall_calc
 {

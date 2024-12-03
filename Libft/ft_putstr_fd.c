@@ -25,7 +25,7 @@ void	ft_putstr_fd(char *s, int fd)
 }
 
 /* int main() {
-    char str[] = "Hello, world!";
-    ft_putstr_fd(str, 1); // output string to stdout (file descriptor 1)
-    return (0);
+	char str[] = "Hello, world!";
+	ft_putstr_fd(str, 1); // output string to stdout (file descriptor 1)
+	return (0);
 } */

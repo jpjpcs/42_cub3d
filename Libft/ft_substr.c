@@ -42,14 +42,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 }
 /* int main ()
 {
-    char s[] = "Hello, World!";
-    unsigned int start = 7;
-    size_t len = 5;
-    printf("\nstring is: %s\n\n", s);
-    printf("substring is: %s\n\n", ft_substr(s, start, len));
-    
-    //Tests given by GPT:
-    char *substr;
+	char s[] = "Hello, World!";
+	unsigned int start = 7;
+	size_t len = 5;
+	printf("\nstring is: %s\n\n", s);
+	printf("substring is: %s\n\n", ft_substr(s, start, len));
+
+	//Tests given by GPT:
+	char *substr;
 	// Test the ft_substr function
 	substr = ft_substr(s, 7, 5);
 	printf("%s\n", substr); // Output: world
@@ -61,20 +61,20 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	substr = ft_substr(s, 7, 100);
 	printf("%s\n", substr); // Output: world!
-		// O len é maior que a string. Nesse caso ajusta-se a len 
+		// O len é maior que a string. Nesse caso ajusta-se a len
 		para um tamanho que acabe no final da string. Pra tal,
-		subtrai-se o tamanho do start ao início da cópia 
+		subtrai-se o tamanho do start ao início da cópia
 		da string --> len = length
 		- start;
 	free(substr);
 
 	substr = ft_substr(s, 100, 5);
 	printf("%s\n", substr); // Output:
-		// O output é vazio. Apenas esta verificação é 
-		pedida nos teste do war-machine. 
+		// O output é vazio. Apenas esta verificação é
+		pedida nos teste do war-machine.
 		O de cima não é pedido. Se o start começa fora da string,
 		ou seja, o start é maior que o length da string,
 		então passamos o len a zero para que não copie nada. --> len = 0;
 	free(substr);
-    return (0);
+	return (0);
 } */

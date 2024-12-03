@@ -46,7 +46,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	ft_memmove(dest, src, size);
 	printf("src after ft_memmove: %s\n", src);
 	printf("dest after ft_memmove: %s\n\n", dest);
-	
+
 	const char src_1[] = "Hello World";
 	char dest_1[3] = "Hi";
 	size_t size_1 = 5;

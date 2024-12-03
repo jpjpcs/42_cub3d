@@ -21,19 +21,19 @@ char	*ft_strchr(const char *s, int c)
 	a = (char *)s;
 	while (*a)
 	{
-		if (*a == (char) c)
+		if (*a == (char)c)
 			return (a);
 		a++;
 	}
-	if (*a == (char) c)
+	if (*a == (char)c)
 		return (a);
 	return (NULL);
 }
 
 /* int main()
-{   
-    char s[] = "Hello World!";
-    int c = 'W';
-    ft_strchr(s, c);
-    return (0);
+{
+	char s[] = "Hello World!";
+	int c = 'W';
+	ft_strchr(s, c);
+	return (0);
 } */

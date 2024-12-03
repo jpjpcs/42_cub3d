@@ -25,7 +25,7 @@ void	*ft_memset(void *s, int c, size_t n)
 }
 
 /* int main ()
-{	
+{
 	char str [] = {48, 49};
 	printf("string %s \n", str);
 	printf("return (of s is: %p \n", ft_memset(str, 57, 4)));

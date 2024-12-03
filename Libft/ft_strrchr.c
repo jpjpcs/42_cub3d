@@ -32,20 +32,20 @@ char	*ft_strrchr(const char *s, int c)
 
 /* int main()
 {
-    char s1[] = "Hello World!";
-    char s2[] = "alexandre";
-    char *result;
+	char s1[] = "Hello World!";
+	char s2[] = "alexandre";
+	char *result;
 
-    result = ft_strrchr(s1, 'l');
-    printf("'%c' last occurence in '%s' is at position %ld\n", 'l', s1, result
+	result = ft_strrchr(s1, 'l');
+	printf("'%c' last occurence in '%s' is at position %ld\n", 'l', s1, result
 		- s1);
-    result = ft_strrchr(s1, 'o');
-    printf("'%c' last occurence in '%s' is at position %ld\n", 'o', s1, result
+	result = ft_strrchr(s1, 'o');
+	printf("'%c' last occurence in '%s' is at position %ld\n", 'o', s1, result
 		- s1);
-    result = ft_strrchr(s1, 'x');
-    printf("'%c' last occurence in '%s' is at position %p\n", 'x', s1, result);
-    result = ft_strrchr(s2, 'x');
-    printf("'%c' last occurence in '%s' is at position %p\n", 'x', s2, result);
+	result = ft_strrchr(s1, 'x');
+	printf("'%c' last occurence in '%s' is at position %p\n", 'x', s1, result);
+	result = ft_strrchr(s2, 'x');
+	printf("'%c' last occurence in '%s' is at position %p\n", 'x', s2, result);
 
-    return (0);
+	return (0);
 } */

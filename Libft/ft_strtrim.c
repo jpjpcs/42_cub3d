@@ -65,14 +65,14 @@ char	*ft_strtrim(char const *s1, char const *set)
 	char set[] = "1 3 t\n\r\f\v56 \t";
 	printf("String trimmed: %s \n", ft_strtrim(s, set));
 	return (0);
-    //find the beginning of the str:
-    //while(s1[i] && ft_is_set(s1[i], set))
+	//find the beginning of the str:
+	//while(s1[i] && ft_is_set(s1[i], set))
 	//	i++;
-    //    if it founds the character 'H' in the set, it stops. 
+	//    if it founds the character 'H' in the set, it stops.
 	//	Otherwise,it passes to the front.
-    //find the end of the str:
-    //while (j > i && s1[j] && ft_is_set(s1[j], set))
+	//find the end of the str:
+	//while (j > i && s1[j] && ft_is_set(s1[j], set))
 	//	j--;
-    //if it founds the character '!' in the set, it stops. 
-    //Otherwise, it passes to the front, going backwords.  
+	//if it founds the character '!' in the set, it stops.
+	//Otherwise, it passes to the front, going backwords.
 } */

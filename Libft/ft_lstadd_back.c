@@ -29,29 +29,26 @@ void	ft_lstadd_back(t_list **lst, t_list *new_node)
 	}
 }
 
-/* int main() 
+/* int main()
 {
-    t_list *lst = NULL;
-    t_list *new_node;
+	t_list	*lst;
+	t_list	*new_node;
 
-    // Create a new node with content "world"
-    new_node = ft_lstnew("world");
-
-    // Add the new node to the end of the list
-    ft_lstadd_back(&lst, new_node);
-
-    // Create another new node with content "hello"
-    new_node = ft_lstnew("hello");
-
-    // Add the second new node to the end of the list
-    ft_lstadd_back(&lst, new_node);
-
-    // Print the contents of the list
-    while (lst != NULL)
-    {
-        printf("\n%s\n\n", (char*)lst->content);
-        lst = lst->next;
-    }
-    return (0);
+	lst = NULL;
+	// Create a new node with content "world"
+	new_node = ft_lstnew("world");
+	// Add the new node to the end of the list
+	ft_lstadd_back(&lst, new_node);
+	// Create another new node with content "hello"
+	new_node = ft_lstnew("hello");
+	// Add the second new node to the end of the list
+	ft_lstadd_back(&lst, new_node);
+	// Print the contents of the list
+	while (lst != NULL)
+	{
+		printf("\n%s\n\n", (char*)lst->content);
+		lst = lst->next;
+	}
+	return (0);
 }
  */

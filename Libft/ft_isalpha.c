@@ -20,7 +20,7 @@ int	ft_isalpha(int c)
 }
 
 /* int	main (void)
-{	
+{
 	char str [] = "a";
 	printf("return (is: %d \n", ft_isalpha (*str)));
 	return (0);

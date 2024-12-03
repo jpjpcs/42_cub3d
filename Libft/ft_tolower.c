@@ -21,10 +21,10 @@ int	ft_tolower(int c)
 }
 
 /* int main()
-{   
-    int c = 'D';
-    printf("\nBefore tolower: %c\n", c);
-    char result = ft_tolower(c);
-    printf("\nAfter tolower: %c\n\n", result);
-    return (0);
+{
+	int c = 'D';
+	printf("\nBefore tolower: %c\n", c);
+	char result = ft_tolower(c);
+	printf("\nAfter tolower: %c\n\n", result);
+	return (0);
 } */

@@ -24,32 +24,32 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 }
 
 /* // Example function to be applied to each node's content
-void    print_content(void *content)
+void	print_content(void *content)
 {
-    printf("%s\n", (char *)content);
+	printf("%s\n", (char *)content);
 }
 
-int main(void)
+int	main(void)
 {
-    // Create a sample list with three nodes
-    t_list *node1 = malloc(sizeof(t_list));
-    t_list *node2 = malloc(sizeof(t_list));
-    t_list *node3 = malloc(sizeof(t_list));
+	// Create a sample list with three nodes
+	t_list *node1 = malloc(sizeof(t_list));
+	t_list *node2 = malloc(sizeof(t_list));
+	t_list *node3 = malloc(sizeof(t_list));
 
-    node1->content = "Hello";
-    node1->next = node2;
-    node2->content = "World";
-    node2->next = node3;
-    node3->content = "!";
-    node3->next = NULL;
+	node1->content = "Hello";
+	node1->next = node2;
+	node2->content = "World";
+	node2->next = node3;
+	node3->content = "!";
+	node3->next = NULL;
 
-    ft_lstiter(node1, print_content);  
-    // Apply print_content function to each node's content
+	ft_lstiter(node1, print_content);
+	// Apply print_content function to each node's content
 
-    // Free the memory allocated for the list
-    free(node1);
-    free(node2);
-    free(node3);
+	// Free the memory allocated for the list
+	free(node1);
+	free(node2);
+	free(node3);
 
-    return 0;
+	return (0);
 } */

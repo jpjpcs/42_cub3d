@@ -20,7 +20,7 @@ int	ft_isdigit(int c)
 }
 
 /* int	main (void)
-{	
+{
 	printf("return (is: %d \n", ft_isdigit ('a')));
 	return (0);
 } */

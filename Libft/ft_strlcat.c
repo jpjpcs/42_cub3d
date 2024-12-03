@@ -41,14 +41,14 @@ size_t	ft_strlcat(char *dest, const char *src, size_t destsize)
 
 /* int main()
 {
-    char src[] = "Hello";
-    char dest[] = "World!";
-    size_t dstsize = 6;
-    printf("\ndest before ft_strlcat: %s\n\n", dest);
-    ft_strlcat(dest, src, dstsize);
-    printf("dest after ft_strlcat: %s\n\n", dest);
-    printf("length of dst plus the length of src after ft_strlcat: %zu\n\n",
+	char src[] = "Hello";
+	char dest[] = "World!";
+	size_t dstsize = 6;
+	printf("\ndest before ft_strlcat: %s\n\n", dest);
+	ft_strlcat(dest, src, dstsize);
+	printf("dest after ft_strlcat: %s\n\n", dest);
+	printf("length of dst plus the length of src after ft_strlcat: %zu\n\n",
 		strlen("World!Hello"));
-    
-    return(0);
+
+	return(0);
 } */

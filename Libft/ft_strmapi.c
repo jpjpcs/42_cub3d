@@ -34,14 +34,14 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 
 /* char ft_add_index (unsigned int i, char c)
 {
-    return (c + i);
+	return (c + i);
 }
 
 int	main(void)
 {
-    char str[] = "Hello";
-    char *modified_str = ft_strmapi (str, ft_add_index);
-    printf("\nModified str is: %s\n\n", modified_str);
-    free(modified_str);
-    return (0);
+	char str[] = "Hello";
+	char *modified_str = ft_strmapi (str, ft_add_index);
+	printf("\nModified str is: %s\n\n", modified_str);
+	free(modified_str);
+	return (0);
 } */

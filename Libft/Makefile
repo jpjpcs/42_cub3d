@@ -6,7 +6,7 @@
 #    By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/23 19:46:19 by joaosilva         #+#    #+#              #
-#    Updated: 2024/11/19 13:34:16 by joaosilva        ###   ########.fr        #
+#    Updated: 2024/11/29 01:37:38 by joaosilva        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ PART2 = ft_itoa.c ft_strjoin.c ft_split.c ft_striteri.c ft_strmapi.c \
 		ft_substr.c ft_strtrim.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c \
 		ft_putnbr_fd.c
 
-NEW_INTRODUCTIONS_INTO_LIBFT = ft_strclen.c ft_intlen.c ft_puthex_fd.c ft_itoapositive.c ft_free_array.c ft_free_array_size.c
+NEW_INTRODUCTIONS_INTO_LIBFT = ft_strclen.c ft_intlen.c ft_puthex_fd.c ft_itoapositive.c \
+							   ft_free_array.c ft_free_array_size.c ft_isspace.c \
+							   ft_strchr_any.c
 
 FT_PRINTF = ft_intlen.c ft_itoapositive.c ft_printf.c ft_puthex_fd.c print_chr.c \
 			print_hex.c print_nbr.c print_pointer.c print_str.c print_unsigned.c

@@ -109,36 +109,36 @@ char	**ft_split(char const *s, char c)
 }
 
 /* int main()
-{   
-    char str [] = "a fred é fixe";
-    char c = ' ';
-    char **new_array = ft_split(str, c);
-    if (!new_array)
-    {
-        printf("ft_split returned NULL\n");
-        return (1);
-    }
+{
+	char str [] = "a fred é fixe";
+	char c = ' ';
+	char **new_array = ft_split(str, c);
+	if (!new_array)
+	{
+		printf("ft_split returned NULL\n");
+		return (1);
+	}
 
-    printf("new list:\n");
-    int i = 0;
-    while (new_array[i] != NULL) {
-        printf("%s\n", new_array[i]);
-        i++;
-    }
+	printf("new list:\n");
+	int i = 0;
+	while (new_array[i] != NULL) {
+		printf("%s\n", new_array[i]);
+		i++;
+	}
 
-    // free memory
+	// free memory
    i = 0;
-    while (new_array[i] != NULL) {
-        free(new_array[i]);
-        i++;
-    }
-    free(new_array);
-    return (0);
+	while (new_array[i] != NULL) {
+		free(new_array[i]);
+		i++;
+	}
+	free(new_array);
+	return (0);
 } */
 
-//char goes through each character (letter or space or other)-->
-//in the loop of ft_count_words.
-//In ft_split, w goes through each word.-->
-//Its a counter that compares the-->
-//n_of_words (that returns of ft_n_of_words)-->
-//and the w that starts in zero.
+// char goes through each character (letter or space or other)-->
+// in the loop of ft_count_words.
+// In ft_split, w goes through each word.-->
+// Its a counter that compares the-->
+// n_of_words (that returns of ft_n_of_words)-->
+// and the w that starts in zero.

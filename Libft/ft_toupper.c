@@ -21,10 +21,10 @@ int	ft_toupper(int c)
 }
 
 /* int main()
-{   
-    int c = 'd';
-    printf("\nBefore toupper: %c\n", c);
-    char result = ft_toupper(c);
-    printf("\nAfter toupper: %c\n\n", result);
-    return (0);
+{
+	int c = 'd';
+	printf("\nBefore toupper: %c\n", c);
+	char result = ft_toupper(c);
+	printf("\nAfter toupper: %c\n\n", result);
+	return (0);
 } */

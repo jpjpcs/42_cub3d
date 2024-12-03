@@ -20,7 +20,7 @@ int	ft_isascii(int c)
 }
 
 /*  int	main (void)
-{	
+{
 	int str = 200;
 	printf("return (is: %d \n", ft_isascii(str)));
 	return (0);

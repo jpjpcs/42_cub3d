@@ -24,10 +24,10 @@ void	ft_bzero(void *s, size_t n)
 }
 
 /* int main ()
-{	
+{
 	char str [] = "[h][e][l][l][o], world!";
 	printf("\nBefore ft_bzero: %s\n", str);
 	ft_bzero(str, sizeof(str));
 	printf("After ft_bzero: %s\n\n\n", str);
-    return (0);
+	return (0);
 }  */

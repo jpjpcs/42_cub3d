@@ -26,14 +26,14 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 
 /* void ft_add_index (unsigned int i, char *c)
 {
-    *c += i;
+	*c += i;
 }
 
 int	main(void)
 {
-    char str[] = "Hello";
-    printf("\nOriginal str is: %s\n\n", str);
-    ft_striteri (str, ft_add_index);
-    printf("\nModified str is: %s\n\n\n", str);
-    return (0);
+	char str[] = "Hello";
+	printf("\nOriginal str is: %s\n\n", str);
+	ft_striteri (str, ft_add_index);
+	printf("\nModified str is: %s\n\n\n", str);
+	return (0);
 } */

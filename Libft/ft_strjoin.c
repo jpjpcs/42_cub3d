@@ -41,8 +41,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 /* int main()
 {
-    const char s1[] = "Hello";
-    const char s2[] = " World!";
-    printf("\nword joined: %s\n\n", ft_strjoin(s1, s2));
-    return (0);   
+	const char s1[] = "Hello";
+	const char s2[] = " World!";
+	printf("\nword joined: %s\n\n", ft_strjoin(s1, s2));
+	return (0);
 } */

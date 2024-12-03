@@ -23,28 +23,28 @@ void	ft_lstadd_front(t_list **lst, t_list *new_node)
 	*lst = new_node;
 }
 
-/* int main() 
+/* int main()
 {
-    t_list *lst = NULL;
-    t_list *new_node;
+	t_list *lst = NULL;
+	t_list *new_node;
 
-    // Create a new node with content "world"
-    new_node = ft_lstnew("world");
+	// Create a new node with content "world"
+	new_node = ft_lstnew("world");
 
-    // Add the new node to the beginning of the list
-    ft_lstadd_front(&lst, new_node);
+	// Add the new node to the beginning of the list
+	ft_lstadd_front(&lst, new_node);
 
-    // Create another new node with content "hello"
-    new_node = ft_lstnew("hello");
+	// Create another new node with content "hello"
+	new_node = ft_lstnew("hello");
 
-    // Add the second new node to the beginning of the list
-    ft_lstadd_front(&lst, new_node);
+	// Add the second new node to the beginning of the list
+	ft_lstadd_front(&lst, new_node);
 
-    // Print the contents of the list
-    while (lst != NULL)
-    {
-        printf("\n%s\n\n", (char*)lst->content);
-        lst = lst->next;
-    }
-    return (0);
+	// Print the contents of the list
+	while (lst != NULL)
+	{
+		printf("\n%s\n\n", (char*)lst->content);
+		lst = lst->next;
+	}
+	return (0);
 } */

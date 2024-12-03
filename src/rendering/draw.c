@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jode-jes <jode-jes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 15:59:19 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/11/21 13:15:14 by jode-jes         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:27:26 by rcruz-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static void get_pixil(t_texture *texture, int x, int y)
+static int get_pixil(t_texture *texture, int x, int y)
 {
     return (*(unsigned int *)(texture->addr + \
 		(y * texture->len) + (x * (texture->bits_per_pixel / 8))));
@@ -105,7 +105,7 @@ void draw(t_game *game, int x)
 	{
 		tex_y = (int)game->draw.pos & (TEXTURE_HEIGHT - 1);
 		game->draw.pos += game->draw.step;
-		color = get_pixil(&game->textures[game->ray.reached_wall], game->hit_x, tex_y);
+		color = get_pixil(&game->textures[game->ray.reached_wall], game->ray.hit, tex_y);
 		color = darken_color(color, game->ray.perp_wall_dist);
 		put_pixil(&game->pixels, x, y, color);
 		y++;

@@ -6,7 +6,7 @@
 /*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:45:17 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/11/29 14:58:13 by rcruz-an         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:24:01 by rcruz-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ typedef struct s_game
     
     // Textures
     t_texture textures[4]; // Texture for the 4 directions for walls and sprites: north, south, east, west, amd the player.
+    t_texture pixels;
     //t_texture		img_walls;
 	//t_texture		img_player;
     
@@ -182,8 +183,8 @@ typedef struct s_game
     int screen_width; // Screen/Window width and height.
     int screen_height;
 
-    //int floor_color;   //JUST TO AVOID ERROR
-    //int ceiling_color; //JUST TO AVOID ERROR
+    int floor_color;   //JUST TO AVOID ERROR
+    int ceiling_color; //JUST TO AVOID ERROR
 } t_game;
 
 // ------------ Prototypes ------------
@@ -220,7 +221,7 @@ void rotate_right(t_game *game);
 int was_key_pressed(t_game *game);
 
 //Rendering
-void draw(t_game *game);
+void draw(t_game *game, int x);
 void raycast(t_game *game);
 static void dda_calculations(t_game *game);
 

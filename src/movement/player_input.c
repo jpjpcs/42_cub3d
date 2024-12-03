@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   player_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jode-jes <jode-jes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 15:58:36 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/11/21 13:15:14 by jode-jes         ###   ########.fr       */
+/*   Updated: 2024/12/03 19:35:47 by rcruz-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
+/* 
 int key_press(int keycode, t_game *game)
 {
     if (keycode == 65307) // ESC
@@ -41,3 +41,4 @@ int key_release(int keycode, t_game *game)
         game->keys.right = 0;
     return (0);
 }
+ */

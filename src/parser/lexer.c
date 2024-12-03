@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:42:01 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/12/03 16:21:53 by rcruz-an         ###   ########.fr       */
+/*   Updated: 2024/12/03 02:05:54 by joaosilva        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ void	lexer(t_game *game)
 	i = -1;
 	while (game->tokens_params[++i])
 	{
-		//printf("Token: %s\n", game->tokens_params[i]);
+		printf("Token: %s\n", game->tokens_params[i]);
 		if (ft_strncmp(game->tokens_params[i], "NO ", 3) == 0)
 			game->textures[0].path = &(game->tokens_params[i][3]);
 		else if (ft_strncmp(game->tokens_params[i], "SO ", 3) == 0)

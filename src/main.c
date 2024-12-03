@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:08:01 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/12/03 17:18:56 by rcruz-an         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:42:24 by joaosilva        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,6 @@ int	main(int ac, char **av)
 	game.floor_color = -1;
 	parser(&game, ac, av[1]);
 	// setup_mlx_and_textures
-	//cub3d (&game, av[1]);
+	// cub3d (&game, av[1]);
 	return (0);
 }

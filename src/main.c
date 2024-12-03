@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+        */
+/*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:08:01 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/12/03 16:42:24 by joaosilva        ###   ########.fr       */
+/*   Updated: 2024/12/03 20:05:09 by rcruz-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	parse_check_file(int argc, char *file, int i, int fd)
 	exit_error(NULL, "The file is empty or contains only whitespace.\n");
 }
 
-void	print_game_atributes(t_game *game)
+/* void	print_game_atributes(t_game *game)
 {
 	printf("Ceiling color: %d\n", game->ceiling_color);
 	printf("Floor color: %d\n", game->floor_color);
@@ -124,7 +124,7 @@ void	print_game_atributes(t_game *game)
 	printf("SO texture: %s\n", game->textures[1].path);
 	printf("WE texture: %s\n", game->textures[2].path);
 	printf("EA texture: %s\n", game->textures[3].path);
-}
+} */
 
 /*
 parse_check_file (What it does):
@@ -165,7 +165,7 @@ void	parser(t_game *game, int ac, char *file)
 	parse_check_file(ac, file, i, fd);
 	tokenizer(game, file);
 	lexer(game);
-	print_game_atributes(game);
+	/* print_game_atributes(game); */
 	parse_check_map(game);
 }
 

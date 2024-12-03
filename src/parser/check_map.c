@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+        */
+/*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 15:55:55 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/12/03 01:39:00 by joaosilva        ###   ########.fr       */
+/*   Updated: 2024/12/03 20:08:18 by rcruz-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_map_walls_floodfill(t_game *game, const int x, const int y)
 	}
 	if (game->map.grid[y][x] == WALL)
 		return ;
-	printf("Char: %c\n", game->map.grid[y][x]);
+	/* printf("Char: %c\n", game->map.grid[y][x]); */
 	game->map.grid[y][x] = '1';
 	check_map_walls_floodfill(game, x + 1, y);
 	check_map_walls_floodfill(game, x - 1, y);
@@ -118,13 +118,13 @@ void	parse_check_map(t_game *game)
 	i = 0;
 	j = 0;
 	check_map_characters(game);
-	printf("Map grid: %s\n", game->tmp_map_grid);
+	/* printf("Map grid: %s\n", game->tmp_map_grid); */
 	check_empty_line_in_map(game);
 	game->map.grid = ft_split(game->tmp_map_grid, '\n');
 	if (!game->map.grid)
 		exit_error(game, "Memory allocation failed in ft_split.\n");
 	set_spawn(game, i, j);
-	printf("Player spawn point: %f, %f\n", game->player.x, game->player.y);
+	/* printf("Player spawn point: %f, %f\n", game->player.x, game->player.y); */
 	check_map_walls_floodfill(game, game->player.x, game->player.y);
 	ft_free_array(game->map.grid);
 	game->map.grid = ft_split(game->tmp_map_grid, '\n');

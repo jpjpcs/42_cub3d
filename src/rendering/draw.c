@@ -6,7 +6,7 @@
 /*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 15:59:19 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/12/03 10:44:22 by rcruz-an         ###   ########.fr       */
+/*   Updated: 2024/12/03 18:24:27 by rcruz-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int get_pixil(t_texture *texture, int x, int y)
 		(y * texture->len) + (x * (texture->bits_per_pixel / 8))));
 }
 
-static int put_pixil(t_game *game, int x, int y, int color)
+static void put_pixil(t_game *game, int x, int y, int color)
 {
     char *dest;
 
@@ -40,9 +40,9 @@ static void draw_background(t_game *game)
         while (++x < SCREEN_WIDTH)
         {
             if (y > SCREEN_HEIGHT / 2)
-                put_pixil(&game, x, y, game->floor_color); //check with the updated .h
+                put_pixil(game, x, y, game->floor_color); //check with the updated .h
             else
-                put_pixil(&game, x, y, game->ceiling_color); //check with the updated .h
+                put_pixil(game, x, y, game->ceiling_color); //check with the updated .h
         }
         x = -1;
     }
@@ -72,6 +72,10 @@ void init_draw(t_game *game)
     i = -1;
     while (++i < 4) //Get the address of the textures
 	{
+		game->textures[i].img = mlx_xpm_file_to_image(game->mlx, game->textures[i].path,
+				&game->textures[i].width, &game->textures[i].height);
+		if (!game->textures[i].img)
+			exit_error(game, "Failed to load texture");
 		game->textures[i].addr = mlx_get_data_addr(game->textures[i].img, 
 			&game->textures[i].bits_per_pixel, &game->textures[i].len,
 			&game->textures[i].endian);
@@ -102,13 +106,14 @@ void draw(t_game *game, int x)
 	int		color;
 
 	y = -1;
+	draw_background(game);
 	while (y < game->draw.end)
 	{
 		tex_y = (int)game->draw.pos & (TEXTURE_HEIGHT - 1); //update texture_y until it reaches the end of the texture
 		game->draw.pos += game->draw.step;
 		color = get_pixil(&game->textures[game->ray.reached_wall], game->ray.hit, tex_y); //get the address of the pixel
 		color = darken_color(color, game->ray.perp_wall_dist); //Make it darker to be more realistic
-		put_pixil(&game->pixels, x, y, color); //put pixel (it is printed in raycasting)
+		put_pixil(game, x, y, color); //put pixel (it is printed in raycasting)
 		y++;
 	}
 }

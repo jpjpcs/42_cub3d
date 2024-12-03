@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jode-jes <jode-jes@student.42.fr>          +#+  +:+       +#+         #
+#    By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/23 20:32:02 by joaosilva         #+#    #+#              #
-#    Updated: 2024/11/21 17:46:13 by jode-jes         ###   ########.fr        #
+#    Updated: 2024/12/03 16:28:43 by rcruz-an         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,15 @@ NAME = cub3d
 # Other Variables
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror #-O3 #-g #-fsanitize=address #-pthread ead #-fsanitize=add
+CFLAGS = -Wall -Wextra -Werror -g #-O3 #-g #-fsanitize=address #-pthread ead #-fsanitize=add
 INCLUDE = -I cub3d/include
 
 ############  Source files - Sources to objects ###########
-SRC_FILES = main.c init/setup_game.c init/setup_textures.c init/setup_mlx.c \
-parser/checkers.c parser/map_loader.c parser/validation.c \
-movement/movement_utils.c movement/player_input.c movement/rotation.c \
-exit_error/exit_free_game.c exit_error/print_error.c \
-rendering/draw.c rendering/raycasting.c rendering/textures.c
+SRC_FILES = main.c parser/tokenizer.c parser/lexer.c parser/check_map.c \
+movement/handle_keys.c movement/movement_utils.c movement/rotation.c \
+rendering/raycasting.c rendering/dda.c rendering/draw.c \
+exit_error/exit_free_game.c \
+ 
 SRC_DIR = src/
 SRC = ${addprefix ${SRC_DIR}, ${SRC_FILES}}
 # SRC = $(addsuffix .c, $(SRC_FILES))
@@ -42,7 +42,7 @@ HEADER = ${addprefix ${HEADER_DIR}/, ${HEADER_FILES}}
 #HEADER_BONUS = ${addprefix ${HEADER_DIR}/, ${HEADER_BONUS_FILES}}
 
 ###Libft
-LIBFT = -L Libft_obj -lft
+LIBFT = -L Libft_obj -lft -lm
 
 ###GNL
 #GET_NEXT_LINE = -L get_next_line_obj -lgnl
@@ -102,11 +102,11 @@ clean:
 #@make fclean -s -C get_next_line
 ifeq ($(UNAME_S),Linux)
 #	@make clean -s -C minilibx-linux
-	@${RM} -r minilibx-linux
-	@${RM} -r minilibx-linux.tgz
+#	@${RM} -r minilibx-linux     #commented, otherwise 'make re' wouldn't work
+#	@${RM} -r minilibx-linux.tgz #commented, otherwise 'make re' wouldn't work
 else ifeq ($(UNAME_S),Darwin)
-	@${RM} -r minilibx_opengl_20191021
-	@${RM} -r minilibx_opengl.tgz
+#	@${RM} -r minilibx_opengl_20191021
+#	@${RM} -r minilibx_opengl.tgz
 # @make clean -C minilibx_opengl_20191021
 # @make clean -s -C minilibx_opengl_20191021
 endif

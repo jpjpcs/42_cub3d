@@ -6,7 +6,7 @@
 /*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 15:59:28 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/11/29 14:14:55 by rcruz-an         ###   ########.fr       */
+/*   Updated: 2024/12/03 17:31:25 by rcruz-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@ static void init_raycast(t_game *game, int x)
 }
 
 /* Raycasting loop */
-void raycast(t_game *game)
+int raycast(t_game *game)
 {
     int horizontal_pixels;
-
+    
+    game->screen_width = SCREEN_WIDTH; // Temp
     horizontal_pixels = 0;
-    was_key_pressed(game);
+    handle_keys(game);
     while (game->screen_width > horizontal_pixels++)
     {
         init_raycast(game, horizontal_pixels);
@@ -53,6 +54,6 @@ void raycast(t_game *game)
         dda_calculations(game);
         draw(game, horizontal_pixels);
     }
-    mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0); // NOT SURE ABOUT THIS ONE
+    mlx_put_image_to_window(game->mlx, game->win, game->pixels.img, 0, 0); // NOT SURE ABOUT THIS ONE
     return 0;
 }

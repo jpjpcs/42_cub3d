@@ -6,7 +6,7 @@
 /*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:45:17 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/12/03 10:24:01 by rcruz-an         ###   ########.fr       */
+/*   Updated: 2024/12/03 18:16:54 by rcruz-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,13 @@
 # include "../Libft/libft.h"
 
 # ifdef __linux__
-//#  include "../minilibx-linux/mlx.h"   //temp disabled because of an error
+#  include "../minilibx-linux/mlx.h"
 # elif defined(__APPLE__)
 #  include "../minilibx_opengl_20191021/mlx.h"
 # endif
 
 // ------------ Tiles ------------
-# define TILES "01NSEW"
-# define O_XPM "textures/1.xpm"
-# define Z_XPM "textures/0.xpm"
-# define N_XPM "textures/N.xpm"
-# define S_XPM "textures/S.xpm"
-# define E_XPM "textures/E.xpm"
-# define W_XPM "textures/W.xpm"
+//# define TILES "01NSEW"
 
 // ------------ Macros ------------
 # define SCREEN_WIDTH 1024
@@ -41,13 +35,15 @@
 # define ROT_SPEED 0.05
 # define TEXTURE_WIDTH 64 //change this value according to the texture width or use game->texture.width
 # define TEXTURE_HEIGHT 64
+# define COS 0.99995000041
+# define SIN 0.00999983333
 
 // ------------ Structs ------------
 
 typedef enum e_tile
 {
 	WALL = '1',
-	SPACE = '0',
+	FLOOR = '0',
 	NORTH = 'N',
 	SOUTH = 'S',
 	WEST = 'W',
@@ -64,20 +60,32 @@ typedef struct s_2d_grid
 // Map struct
 typedef struct s_map 
 {
-    char **grid; // Map data: 2D array of characters. Each character represents a different element of the map.
-    int map_rows; // map_height 
-    int map_cols; // map_width
-    t_2d_grid checker; //which grid
+    char **grid; // Map data: 2D array of characters. Each character represents a different element of the map. 
+/*     int rows; // map_height 
+    int cols; // map_width */
+    t_2d_grid checker; //its used to verify at each deltaStep if its an obstacle.
 } t_map;
 
-// Keys struct
-typedef struct s_keys 
+typedef enum e_key
 {
-    int up;
-    int down;
-    int left;
-    int right;
+    ESC = 65307,
+	W = 119,
+	A = 97,
+	S = 115,
+	D = 100,
+	P = 112,
+	ROTATE_LEFT = 65361,
+    ROTATE_RIGHT = 65363,
+}				t_key;
+
+// Keys struct
+typedef struct s_keys
+{
     int esc;
+    int	w;
+	int	a;
+	int	s;
+	int	d;
     int rotate_left;
     int rotate_right;
 } t_keys;
@@ -85,13 +93,14 @@ typedef struct s_keys
 // Texture struct
 typedef struct s_texture 
 {
-    void *img; // Image of the texture itself.                                           // Or color
-    char *addr;                                                                          //uncomment
+    void *img; // Image of the texture itself.
+    char *path; // address of the texture file.
+    char *addr; //memory address
     int width;
     int height;
-    int bits_per_pixel;                                                                  //added 2/12
-    int endian;                                                                          //added 2/12
-    int len;
+    int bits_per_pixel; //HERE!!!!!!!!!!
+    int endian;         //HERE!!!!!!!!!!
+    int len;            //HERE!!!!!!!!!!
 } t_texture;
 
 //Draw calculations
@@ -129,7 +138,7 @@ typedef struct s_ray
     int side;   //Which side did the ray hit the wall
     double  camera_x; //[-1, 1] // -1 is the leftmost side of the screen
     int     reached_wall; //if pos += delta as touched a wall
-    int     side; //side of the wall that was hit
+    //int     side; //side of the wall that was hit
 } t_ray;
 
 // Player struct
@@ -154,13 +163,15 @@ typedef struct s_game
     void *mlx; // Instance of the mlx library. To allow interaction with the graphic system.
     void *win; // Game window to be rendered. The window where the game will be displayed.
     void *img; // Image to be rendered. The image that will be displayed on the window and that´s the background of the game.
-
+    // t_texture screen_image; // Image to be rendered. The image that will be displayed on the window and that´s the background of the game.
     // Game Map (2D representation)
     t_map map; // The Map of the game: map structure. Contains the map data and its dimensions (width and height).
+    char *tokens_params[7]; // Array with the splited map parameters.
+    char *tmp_map_grid; // Temporary map grid to store the map data before it´s copied to the map structure.
     
     // Players properties
     t_player player; // Player´s information: position, direction, etc
-
+    
     // Ray data
     t_ray ray;
 
@@ -175,16 +186,18 @@ typedef struct s_game
     
     // Textures
     t_texture textures[4]; // Texture for the 4 directions for walls and sprites: north, south, east, west, amd the player.
-    t_texture pixels;
+    t_texture pixels; //HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //t_texture		img_walls;
 	//t_texture		img_player;
+    
+    // Colors
+    int floor_color;
+    int ceiling_color;
     
     // Screen size
     int screen_width; // Screen/Window width and height.
     int screen_height;
-
-    int floor_color;   //JUST TO AVOID ERROR
-    int ceiling_color; //JUST TO AVOID ERROR
+    char *addr; // Address of the image to be rendered.
 } t_game;
 
 // ------------ Prototypes ------------
@@ -195,21 +208,20 @@ typedef struct s_game
 //void load_textures(t_game *game);
 
 //Parser
-void check_file(int argc, char *file_name);
-void check_map(char *file_name);
-void load_map(t_game *game, char *file);
-int validate_map(t_game *game);
-int validate_config(t_game *game);
+void tokenizer (t_game *game, char *file);
+void lexer(t_game *game);
+void parse_check_map(t_game *game);
 
 //Init
 void setup_game(t_game *game);
 void setup_mlx(t_game *game);
 void setup_textures(t_game *game);
 
-// ------------ Key Hooks ------------
+// ------------ Movement ------------
+// Key Hooks
 int key_press(int keycode, t_game *game);
 int key_release(int keycode, t_game *game);
-
+void    handle_keys(t_game *game);
 //Movement
 void move_forward(t_game *game);
 void move_backward(t_game *game);
@@ -222,14 +234,14 @@ int was_key_pressed(t_game *game);
 
 //Rendering
 void draw(t_game *game, int x);
-void raycast(t_game *game);
-static void dda_calculations(t_game *game);
+int raycast(t_game *game);
+void dda_calculations(t_game *game);
 
 //Cleanup - exit/error
-void free_resources(t_game *game);
-void exit_game(t_game *game);
-int print_error(const char *msg);
 void exit_error (t_game *game, char *msg);
+int	exit_game(t_game *game, char *msg);
+int	exit_esc(t_game *game);
+void	free_game(t_game *game);
 
 // ------------ Error Handling ------------
 int error_exit(const char *msg);

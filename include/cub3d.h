@@ -6,7 +6,7 @@
 /*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:45:17 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/12/03 18:16:54 by rcruz-an         ###   ########.fr       */
+/*   Updated: 2024/12/03 21:22:37 by rcruz-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,8 @@ typedef struct s_game
     t_keys keys; // Keys controls: up, down, left, right arrows and ESC. 
     
     // Textures
-    t_texture textures[4]; // Texture for the 4 directions for walls and sprites: north, south, east, west, amd the player.
+    char * textures[4]; // Texture for the 4 directions for walls and sprites: north, south, east, west, amd the player.
+    t_texture img[4];
     t_texture pixels; //HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //t_texture		img_walls;
 	//t_texture		img_player;

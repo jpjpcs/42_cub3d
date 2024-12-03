@@ -6,28 +6,29 @@
 /*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:08:01 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/12/03 20:05:09 by rcruz-an         ###   ########.fr       */
+/*   Updated: 2024/12/03 20:36:48 by rcruz-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-/*
 // game loops - raycasting loop and game loop.
 void	cub3d(t_game *game, char *file)
 {
-	raycasting(&game);
+	(void)file;
+	//(void)game;
+	raycast(game);
 	mlx_hook(game->win, 2, 1L << 0, &key_press, &game);
-	mlx_hook(game->win, 3, 1L << 1, &key_release, &game);
-	mlx_hook(game->win, 17, 1L << 17, exit_esc, &game);
-	mlx_loop_hook(game->mlx, &raycasting, &game);
-	mlx_loop(game->mlx);
+	//mlx_hook(game->win, 3, 1L << 1, &key_release, &game);
+	//mlx_hook(game->win, 17, 1L << 17, exit_esc, &game);
+	//mlx_loop_hook(game->mlx, raycast, &game);
+	//mlx_loop(game->mlx);
 }
 
 
 //Instead of ft_bzero(game, sizeof(t_game));
 //I could also use memset or calloc or just game = (t_game){0};
-static void	init_game(t_game *game)
+/* static void	init_game(t_game *game)
 {
 	setup_game(game);
 	setup_mlx(game);
@@ -50,6 +51,7 @@ void	setup_mlx_and_textures(t_game *game)
 			&game->line_length, &game->endian);
 	if (!game->addr)
 		exit_error(game, "Failed to get image address.\n");
+		
 	game->textures[0].img = mlx_xpm_file_to_image(game->mlx, N_XPM,
 			&game->textures[0].width, &game->textures[0].height);
 	game->textures[1].img = mlx_xpm_file_to_image(game->mlx, S_XPM,
@@ -58,9 +60,11 @@ void	setup_mlx_and_textures(t_game *game)
 			&game->textures[2].width, &game->textures[2].height);
 	game->textures[3].img = mlx_xpm_file_to_image(game->mlx, W_XPM,
 			&game->textures[3].width, &game->textures[3].height);
+			
 	if (!game->textures[0].img || !game->textures[1].img
 		|| !game->textures[2].img || !game->textures[3].img)
 		exit_error(game, "Failed to load textures.\n");
+		
 	game->textures[0].path = mlx_get_data_addr(game->textures[0].img,
 			&game->textures[0].bits_per_pixel, &game->textures[0].line_length,
 			&game->textures[0].endian);
@@ -73,11 +77,12 @@ void	setup_mlx_and_textures(t_game *game)
 	game->textures[3].path = mlx_get_data_addr(game->textures[3].img,
 			&game->textures[3].bits_per_pixel, &game->textures[3].line_length,
 			&game->textures[3].endian);
+			
 	if (!game->textures[0].path || !game->textures[1].path
 		|| !game->textures[2].path || !game->textures[3].path)
 		exit_error(game, "Failed to get textures address.\n");
-}
-*/
+} */
+
 
 /*
 It checks all in one in the same function:
@@ -192,6 +197,6 @@ int	main(int ac, char **av)
 	game.floor_color = -1;
 	parser(&game, ac, av[1]);
 	// setup_mlx_and_textures
-	// cub3d (&game, av[1]);
+	cub3d (&game, av[1]);
 	return (0);
 }

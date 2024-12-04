@@ -13,7 +13,7 @@
 #include "../include/cub3d.h"
 
 // game loops - raycasting loop and game loop.
-/* void	cub3d(t_game *game, char *file)
+void	cub3d(t_game *game, char *file)
 {
 	(void)file;
 	raycast(game);
@@ -22,7 +22,7 @@
 	mlx_hook(game->win, 17, 1L << 17, exit_esc, &game);
 	mlx_loop_hook(game->mlx, raycast, &game);
 	mlx_loop(game->mlx);
-} */
+}
 
 
 //Instead of ft_bzero(game, sizeof(t_game));
@@ -92,7 +92,7 @@ void	setup_mlx_and_textures(t_game *game)
 	printf("EA texture: %s\n", game->textures[3].path);
 } */
 
-/* void init_draw(t_game *game)
+void init_draw(t_game *game)
 {
     // Add this part to the "init" folder maybe?
     int i;
@@ -125,7 +125,7 @@ void	setup_mlx_and_textures(t_game *game)
 		exit_error(game, "Failed to get image address");
 	game->win = mlx_new_window(game->mlx, game->pixels.width,
 		game->pixels.height, "Cub3D");
-} */
+}
 
 /*
 It checks all in one in the same function:
@@ -229,8 +229,7 @@ int	main(int ac, char **av)
 	game.ceiling_color = -1;
 	game.floor_color = -1;
 	parser(&game, ac, av[1]);
-	// setup_mlx_and_textures
-	//init_draw(&game);
-	//cub3d (&game, av[1]);
+	init_draw(&game);
+	cub3d (&game, av[1]);
 	return (0);
 }

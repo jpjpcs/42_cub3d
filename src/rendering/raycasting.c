@@ -35,8 +35,8 @@ static void init_raycast(t_game *game, int x)
     game->ray.dir_y = game->player.dir_y + game->player.plane_y * game->ray.camera_x; //Ray direction in y
     game->ray.step_x = (game->ray.dir_x < 0) * -2 + 1; // -1 or 1 (left or right)
     game->ray.step_y = (game->ray.dir_y < 0) * -2 + 1; // -1 or 1 (down or up)
-    game->map.checker.x = (int)(game->player.y); //Player's position as an INT to identify the grid cell (map block)
-    game->map.checker.y = (int)(game->player.x);
+    game->map.checker.x = (int)(game->player.x); //Player's position as an INT to identify the grid cell (map block)
+    game->map.checker.y = (int)(game->player.y);
 }
 
 /* Raycasting loop */
@@ -52,7 +52,7 @@ int raycast(t_game *game)
     {
         init_raycast(game, horizontal_pixels);
         init_dda(game);
-        //dda_calculations(game);
+        dda_calculations(game);
         //draw(game, horizontal_pixels);
     }
     //mlx_put_image_to_window(game->mlx, game->win, game->pixels.img, 0, 0); // NOT SURE ABOUT THIS ONE

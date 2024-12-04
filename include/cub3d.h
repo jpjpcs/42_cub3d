@@ -6,7 +6,7 @@
 /*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:45:17 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/12/03 21:22:37 by rcruz-an         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:23:38 by rcruz-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@
 #  include "../minilibx_opengl_20191021/mlx.h"
 # endif
 
-// ------------ Tiles ------------
-//# define TILES "01NSEW"
-
 // ------------ Macros ------------
 # define SCREEN_WIDTH 1024
 # define SCREEN_HEIGHT 768
@@ -37,6 +34,7 @@
 # define TEXTURE_HEIGHT 64
 # define COS 0.99995000041
 # define SIN 0.00999983333
+# define FOV 0.66
 
 // ------------ Structs ------------
 
@@ -94,7 +92,6 @@ typedef struct s_keys
 typedef struct s_texture 
 {
     void *img; // Image of the texture itself.
-    char *path; // address of the texture file.
     char *addr; //memory address
     int width;
     int height;
@@ -162,7 +159,7 @@ typedef struct s_game
     // MLX variables (graphic library)
     void *mlx; // Instance of the mlx library. To allow interaction with the graphic system.
     void *win; // Game window to be rendered. The window where the game will be displayed.
-    void *img; // Image to be rendered. The image that will be displayed on the window and that´s the background of the game.
+    void *img; //
     // t_texture screen_image; // Image to be rendered. The image that will be displayed on the window and that´s the background of the game.
     // Game Map (2D representation)
     t_map map; // The Map of the game: map structure. Contains the map data and its dimensions (width and height).
@@ -186,27 +183,13 @@ typedef struct s_game
     
     // Textures
     char * textures[4]; // Texture for the 4 directions for walls and sprites: north, south, east, west, amd the player.
-    t_texture img[4];
+    t_texture img_text[4];  // void *img inside t_texture struct is the Image to be rendered. The image that will be displayed on the window and that´s the background of the game.
     t_texture pixels; //HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //t_texture		img_walls;
-	//t_texture		img_player;
     
     // Colors
     int floor_color;
     int ceiling_color;
-    
-    // Screen size
-    int screen_width; // Screen/Window width and height.
-    int screen_height;
-    char *addr; // Address of the image to be rendered.
 } t_game;
-
-// ------------ Prototypes ------------
-//void init_game(t_game *game);
-//void render_game(t_game *game);
-//void handle_keys(t_game *game);
-//void move_player(t_game *game);
-//void load_textures(t_game *game);
 
 //Parser
 void tokenizer (t_game *game, char *file);
@@ -244,42 +227,9 @@ int	exit_game(t_game *game, char *msg);
 int	exit_esc(t_game *game);
 void	free_game(t_game *game);
 
-// ------------ Error Handling ------------
-int error_exit(const char *msg);
-
 #endif
 
 /*
-cub3d/
-├── include/
-│   ├── cub3d.h
-│   ├── parser.h
-│   ├── game.h
-│   ├── movement.h
-│   ├── rendering.h
-│   └── cleanup.h
-├── src/
-│   ├── main.c
-│   ├── parser/
-│   │   ├── config.c
-│   │   ├── map_loader.c
-│   │   └── validation.c
-│   ├── init/
-│   │   ├── setup_game.c
-│   │   ├── setup_mlx.c
-│   │   └── setup_textures.c
-│   ├── movement/
-│   │   ├── player_input.c
-│   │   ├── movement_utils.c
-│   │   └── rotation.c
-│   ├── rendering/
-│   │   ├── draw.c
-│   │   ├── raycasting.c
-│   │   └── textures.c
-│   ├── cleanup/
-│   │   ├── free_resources.c
-│   │   └── exit_game.c
-
 
 cub3d/
 ├── include/

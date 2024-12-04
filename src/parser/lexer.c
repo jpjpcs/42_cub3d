@@ -6,7 +6,7 @@
 /*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:42:01 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/12/03 21:26:04 by rcruz-an         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:28:28 by rcruz-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,57 +66,17 @@ void	parse_check_assign_textures(t_game *game, const char *path,
 }
 */
 
-void	ft_free_split(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-}
-
 /*
 1. First it splits the line by the comma.
 2. Then it verifies if the split is valid.
 3. Then it verifies if the RGB is valid:
-	- If it is a digit.
+	- Using a while it verifies if every
+	char of the str is a digit.
 	- If it has more than 3 characters.
 	- If it is between 0 and 255.
 4. If it is valid, it assigns the RGB to the array.
 5. If it is not valid, it frees the split and returns 0.
 */
-/*  int	parse_color(char *line, int *rgb)
-{
-	char	**split;
-	int		i;
-
-	i = 0;
-	split = ft_split(line, ',');
-	if (!split)
-		return (0);
-	while (split[i])
-	{
-		if (!ft_isdigit(split[i][0]) || ft_strlen(split[i]) > 3)
-		{
-			ft_free_split(split);
-			return (0);
-		}
-		rgb[i] = ft_atoi(split[i]);
-		if (rgb[i] < 0 || rgb[i] > 255)
-		{
-			ft_free_split(split);
-			return (0);
-		}
-		i++;
-	}
-	ft_free_split(split);
-	return (i == 3);
-} */
-
 int	parse_color_2(char *color_element)
 {
 	int	j;
@@ -146,18 +106,18 @@ int	parse_color(char *line, int *rgb)
 	{
 		if (!parse_color_2(split[i]))
 		{
-			ft_free_split(split);
+			ft_free_array(split);
 			return (0);
 		}
 		rgb[i] = ft_atoi(split[i]);
 		if (rgb[i] < 0 || rgb[i] > 255)
 		{
-			ft_free_split(split);
+			ft_free_array(split);
 			return (0);
 		}
 		i++;
 	}
-	ft_free_split(split);
+	ft_free_array(split);
 	return (i == 3);
 }
 
@@ -200,15 +160,14 @@ void	lexer(t_game *game)
 	i = -1;
 	while (game->tokens_params[++i])
 	{
-		/* printf("Token: %s\n", game->tokens_params[i]); */
 		if (ft_strncmp(game->tokens_params[i], "NO ", 3) == 0)
-			game->textures[0].path = &(game->tokens_params[i][3]);
+			game->textures[0] = &(game->tokens_params[i][3]);
 		else if (ft_strncmp(game->tokens_params[i], "SO ", 3) == 0)
-			game->textures[1].path = &(game->tokens_params[i][3]);
+			game->textures[1] = &(game->tokens_params[i][3]);
 		else if (ft_strncmp(game->tokens_params[i], "EA ", 3) == 0)
-			game->textures[2].path = &(game->tokens_params[i][3]);
+			game->textures[2] = &(game->tokens_params[i][3]);
 		else if (ft_strncmp(game->tokens_params[i], "WE ", 3) == 0)
-			game->textures[3].path = &(game->tokens_params[i][3]);
+			game->textures[3] = &(game->tokens_params[i][3]);
 		else if (ft_strncmp(game->tokens_params[i], "F ", 2) == 0)
 			parse_check_assign_colors(game, game->tokens_params[i] + 2, 'F');
 		else if (ft_strncmp(game->tokens_params[i], "C ", 2) == 0)
@@ -217,3 +176,4 @@ void	lexer(t_game *game)
 			exit_error(game, "Unknown parameter.\n");
 	}
 }
+

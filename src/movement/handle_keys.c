@@ -6,7 +6,7 @@
 /*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 15:58:36 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/12/03 15:31:44 by rcruz-an         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:58:26 by rcruz-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	key_release(int keycode, t_game *game)
 	else if (keycode == ROTATE_RIGHT)
 		game->keys.rotate_right = 0;
 	else if (keycode == ESC)
-		game->keys.esc = 0;
+		game->keys.esc += 1;
 	return (0);
 }
 
@@ -65,35 +65,3 @@ int	key_press(int keycode, t_game *game)
 		game->keys.rotate_right = 1;
 	return (0);
 }
-
-
-/* Old */
-/* int key_press(int keycode, t_game *game)
-{
-    if (keycode == 65307) // ESC
-        game->keys.esc = 1;
-    if (keycode == 119) // W
-        game->keys.up = 1;
-    if (keycode == 115) // S
-        game->keys.down = 1;
-    if (keycode == 97) // A
-        game->keys.left = 1;
-    if (keycode == 100) // D
-        game->keys.right = 1;
-    return (0);
-}
-
-int key_release(int keycode, t_game *game)
-{
-    if (keycode == 65307) // ESC
-        game->keys.esc = 0;
-    if (keycode == 119) // W
-        game->keys.up = 0;
-    if (keycode == 115) // S
-        game->keys.down = 0;
-    if (keycode == 97) // A
-        game->keys.left = 0;
-    if (keycode == 100) // D
-        game->keys.right = 0;
-    return (0);
-} */

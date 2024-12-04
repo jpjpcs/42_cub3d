@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_free_game.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaosilva <joaosilva@student.42.fr>        +#+  +:+       +#+        */
+/*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 16:01:22 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/12/03 01:36:49 by joaosilva        ###   ########.fr       */
+/*   Updated: 2024/12/04 15:33:47 by rcruz-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static void	free_textures(t_game *game)
 
 	i = -1;
 	while (++i <= 4)
-		if (game->textures[i].img)
-			mlx_destroy_image(game->mlx, game->textures[i].img);
+		if (game->img_text[i].img)
+			mlx_destroy_image(game->mlx, game->img_text[i].img);
 	/* if (game->img_walls.img)
 		mlx_destroy_image(game->mlx, game->img_walls.img);
 	if (game->img_space.img)

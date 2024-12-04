@@ -6,24 +6,23 @@
 /*   By: rcruz-an <rcruz-an@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:08:01 by joaosilva         #+#    #+#             */
-/*   Updated: 2024/12/03 20:36:48 by rcruz-an         ###   ########.fr       */
+/*   Updated: 2024/12/04 17:41:49 by rcruz-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
 // game loops - raycasting loop and game loop.
-void	cub3d(t_game *game, char *file)
+/* void	cub3d(t_game *game, char *file)
 {
 	(void)file;
-	//(void)game;
 	raycast(game);
 	mlx_hook(game->win, 2, 1L << 0, &key_press, &game);
-	//mlx_hook(game->win, 3, 1L << 1, &key_release, &game);
-	//mlx_hook(game->win, 17, 1L << 17, exit_esc, &game);
-	//mlx_loop_hook(game->mlx, raycast, &game);
-	//mlx_loop(game->mlx);
-}
+	mlx_hook(game->win, 3, 1L << 1, &key_release, &game);
+	mlx_hook(game->win, 17, 1L << 17, exit_esc, &game);
+	mlx_loop_hook(game->mlx, raycast, &game);
+	mlx_loop(game->mlx);
+} */
 
 
 //Instead of ft_bzero(game, sizeof(t_game));
@@ -83,6 +82,50 @@ void	setup_mlx_and_textures(t_game *game)
 		exit_error(game, "Failed to get textures address.\n");
 } */
 
+/* void	print_game_atributes(t_game *game)
+{
+	printf("Ceiling color: %d\n", game->ceiling_color);
+	printf("Floor color: %d\n", game->floor_color);
+	printf("NO texture: %s\n", game->textures[0].path);
+	printf("SO texture: %s\n", game->textures[1].path);
+	printf("WE texture: %s\n", game->textures[2].path);
+	printf("EA texture: %s\n", game->textures[3].path);
+} */
+
+/* void init_draw(t_game *game)
+{
+    // Add this part to the "init" folder maybe?
+    int i;
+
+    i = -1;
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		exit_error(game, "Couldn't initialize mlx");
+    while (++i < 4) //Get the address of the textures
+	{
+		game->img_text[i].img = mlx_xpm_file_to_image(game->mlx, game->textures[i],
+				&game->img_text[i].width, &game->img_text[i].height);
+		if (!game->img_text[i].img)
+			exit_error(game, "Failed to load texture");
+		game->img_text[i].addr = mlx_get_data_addr(game->img_text[i].img, 
+			&game->img_text[i].bits_per_pixel, &game->img_text[i].len,
+			&game->img_text[i].endian);
+		if (!game->img_text[i].addr)
+			exit_error(game, "Failed to get texture address");
+	}
+	game->pixels.width = (int)SCREEN_WIDTH;
+	game->pixels.height = (int)SCREEN_HEIGHT;
+	game->pixels.img = mlx_new_image(game->mlx, game->pixels.width,
+			game->pixels.height);
+	if (!game->pixels.img)
+		exit_error(game, "Failed to create new image");
+	game->pixels.addr = mlx_get_data_addr(game->pixels.img,
+			&game->pixels.bits_per_pixel, &game->pixels.len, &game->pixels.endian);
+	if (!game->pixels.addr)
+		exit_error(game, "Failed to get image address");
+	game->win = mlx_new_window(game->mlx, game->pixels.width,
+		game->pixels.height, "Cub3D");
+} */
 
 /*
 It checks all in one in the same function:
@@ -120,16 +163,6 @@ void	parse_check_file(int argc, char *file, int i, int fd)
 	close(fd);
 	exit_error(NULL, "The file is empty or contains only whitespace.\n");
 }
-
-/* void	print_game_atributes(t_game *game)
-{
-	printf("Ceiling color: %d\n", game->ceiling_color);
-	printf("Floor color: %d\n", game->floor_color);
-	printf("NO texture: %s\n", game->textures[0].path);
-	printf("SO texture: %s\n", game->textures[1].path);
-	printf("WE texture: %s\n", game->textures[2].path);
-	printf("EA texture: %s\n", game->textures[3].path);
-} */
 
 /*
 parse_check_file (What it does):
@@ -197,6 +230,7 @@ int	main(int ac, char **av)
 	game.floor_color = -1;
 	parser(&game, ac, av[1]);
 	// setup_mlx_and_textures
-	cub3d (&game, av[1]);
+	//init_draw(&game);
+	//cub3d (&game, av[1]);
 	return (0);
 }

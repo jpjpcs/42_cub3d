@@ -96,8 +96,6 @@ void	check_empty_line_in_map(t_game *game)
 	// Verificar se o último caractere do mapa é '\0' após o processamento
 	if (last_line_len > 0 && game->tmp_map_grid[last_line_len - 1] == '\0')
 		return; // Mapa válido
-	else if (last_line_len == 0)
-		exit_error(game, "Invalid map: map ends with an empty line.\n");
 }
 
 void print_map(t_game *game)

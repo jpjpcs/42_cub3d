@@ -49,7 +49,7 @@ int raycast(t_game *game)
     handle_keys(game);
     while (game->pixels.width > horizontal_pixels++)
     {
-        printf("------------------------------------\n");
+        printf("-----------------------------------------------------------------------------------------------------\n");
         init_raycast(game, horizontal_pixels);
         init_dda(game);
         dda_calculations(game);

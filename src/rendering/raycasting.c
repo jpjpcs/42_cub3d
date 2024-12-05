@@ -47,14 +47,14 @@ int raycast(t_game *game)
     game->pixels.width = SCREEN_WIDTH; // Temp
     horizontal_pixels = 0;
     handle_keys(game);
-
     while (game->pixels.width > horizontal_pixels++)
     {
+        printf("------------------------------------\n");
         init_raycast(game, horizontal_pixels);
         init_dda(game);
         dda_calculations(game);
-        //draw(game, horizontal_pixels);
+        draw(game, horizontal_pixels);
     }
-    //mlx_put_image_to_window(game->mlx, game->win, game->pixels.img, 0, 0); // NOT SURE ABOUT THIS ONE
+    mlx_put_image_to_window(game->mlx, game->win, game->pixels.img, 0, 0); // NOT SURE ABOUT THIS ONE
     return 0;
 }

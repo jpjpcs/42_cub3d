@@ -14,6 +14,7 @@
 
 static int get_pixil(t_texture *texture, int x, int y)
 {
+	printf("GET PIXIL\n");
     return (*(unsigned int *)(texture->addr + \
 		(y * texture->len) + (x * (texture->bits_per_pixel / 8))));
 }
@@ -22,6 +23,7 @@ static void put_pixil(t_game *game, int x, int y, int color)
 {
     char *dest;
 
+	printf("PUT PIXIL\n");
     dest = game->pixels.addr + (y * game->pixels.len + x * 
         (game->pixels.bits_per_pixel / 8));
     *(unsigned int *)dest = color;
@@ -35,6 +37,7 @@ static void draw_background(t_game *game)
 
     x = -1;
     y = -1;
+	printf("DRAW BACKGROUND\n");
     while (++y < SCREEN_HEIGHT)
     {
         while (++x < SCREEN_WIDTH)
@@ -51,6 +54,7 @@ static void draw_background(t_game *game)
 /* make it darker the further it is from the player */
 int darken_color(int color, double perp_wall_dist)
 {
+	printf("DARKEN COLOR\n");
  	int	r;
 	int	g;
 	int	b;
@@ -61,6 +65,10 @@ int darken_color(int color, double perp_wall_dist)
 	r = (color >> 16) / perp_wall_dist; //Bitwise to reach the red color (0xRRGGBB)
 	g = (color >> 8 & 0xFF) / perp_wall_dist;
 	b = (color & 0xFF) / perp_wall_dist;
+	printf("%i\n", r);
+	printf("%i\n", g);
+	printf("%i\n", b);
+	printf("DARKEN COLOR\n");
 	return (r << 16 | g << 8 | b);   
 }
 
@@ -68,16 +76,18 @@ void draw(t_game *game, int x)
 {
     int		y;
 	int		tex_y;
-	int		color;
+	unsigned		color;
 
-	y = -1;
 	draw_background(game);
+	y = game->draw.start;
 	while (y < game->draw.end)
 	{
+		printf("++++++++++++++++++++++++++++++++++++++++++++++++\n");
 		tex_y = (int)game->draw.pos & (TEXTURE_HEIGHT - 1); //update texture_y until it reaches the end of the texture
 		game->draw.pos += game->draw.step;
 		color = get_pixil(&game->img_text[game->ray.reached_wall], game->ray.hit, tex_y); //get the address of the pixel
 		color = darken_color(color, game->ray.perp_wall_dist); //Make it darker to be more realistic
+		printf("%i\n", color);
 		put_pixil(game, x, y, color); //put pixel (it is printed in raycasting)
 		y++;
 	}

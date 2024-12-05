@@ -82,6 +82,8 @@ static void each_delta_step(t_game *game)
         game->map.checker.y += game->ray.step_y;
     }
     check_collision(game, game->map.checker);
+    printf("Value Checker x %i \n", game->map.checker.x);
+    //usleep(500);
 }
 
 /* DDA --> Digital Differential Analysis */

@@ -17,11 +17,11 @@ void	cub3d(t_game *game, char *file)
 {
 	(void)file;
 	raycast(game);
-	mlx_hook(game->win, 2, 1L << 0, &key_press, &game);
-	mlx_hook(game->win, 3, 1L << 1, &key_release, &game);
-	mlx_hook(game->win, 17, 1L << 17, exit_esc, &game);
-	mlx_loop_hook(game->mlx, raycast, &game);
-	mlx_loop(game->mlx);
+	//mlx_hook(game->win, 2, 1L << 0, &key_press, &game);
+	//mlx_hook(game->win, 3, 1L << 1, &key_release, &game);
+	//mlx_hook(game->win, 17, 1L << 17, exit_esc, &game);
+	//mlx_loop_hook(game->mlx, raycast, &game);
+	//mlx_loop(game->mlx);
 }
 
 
@@ -103,7 +103,7 @@ void init_draw(t_game *game)
 		exit_error(game, "Couldn't initialize mlx");
     while (++i < 4) //Get the address of the textures
 	{
-		game->img_text[i].img = mlx_xpm_file_to_image(game->mlx, game->textures[i],
+		game->img_text[i].img = mlx_xpm_file_to_image(game->mlx, game->textures[i].addr,
 				&game->img_text[i].width, &game->img_text[i].height);
 		if (!game->img_text[i].img)
 			exit_error(game, "Failed to load texture");
@@ -118,13 +118,15 @@ void init_draw(t_game *game)
 	game->pixels.img = mlx_new_image(game->mlx, game->pixels.width,
 			game->pixels.height);
 	if (!game->pixels.img)
-		exit_error(game, "Failed to create new image");
+		exit_error(game, "New image creation failed");
 	game->pixels.addr = mlx_get_data_addr(game->pixels.img,
 			&game->pixels.bits_per_pixel, &game->pixels.len, &game->pixels.endian);
 	if (!game->pixels.addr)
-		exit_error(game, "Failed to get image address");
+		exit_error(game, "Image address failed");
 	game->win = mlx_new_window(game->mlx, game->pixels.width,
 		game->pixels.height, "Cub3D");
+	if (!game->win)
+		exit_error(game, "New window creation failed!");
 }
 
 /*

@@ -128,5 +128,5 @@ void	parse_check_map(t_game *game)
 	game->map.grid = ft_split(game->tmp_map_grid, '\n');
 	if (!game->map.grid)
 		exit_error(game, "Memory allocation failed in ft_split.\n");
-	print_map(game);
+	//print_map(game);
 }

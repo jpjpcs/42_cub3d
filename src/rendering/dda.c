@@ -21,35 +21,32 @@
 /* y negative --> = 2 */
 static void check_collision(t_game *game, t_2d_grid checker)
 {
-    if (game->map.grid[checker.y][checker.x] == '1')
+    if (game->map.grid[checker.y][checker.x] != '0')
     {
         game->ray.reached_wall = game->ray.side - (game->ray.side == 1 && 
         game->ray.step_x < 0) - (game->ray.side == 3 && game->ray.step_y < 0);
     }
-    (void)checker;
 }
 
 /* Calculate the distance from the plane to the wall hit (parallel to the ray_dir)  */
 static void hit_length(t_game *game)
 {
+    double hit_x;
+
     if (game->ray.side == 1)
         game->ray.perp_wall_dist = game->ray.side_dist_x - game->ray.delta_dist_x; //Distance traveled along the ray X
     else
         game->ray.perp_wall_dist = game->ray.side_dist_y - game->ray.delta_dist_y;
     if (game->ray.side == 1)
-        game->ray.hit = game->player.y + game->ray.perp_wall_dist * game->ray.dir_y; // Hit position
+        hit_x = game->player.y + game->ray.perp_wall_dist * game->ray.dir_y; // Hit position
     else
-        game->ray.hit = game->player.x + game->ray.perp_wall_dist * game->ray.dir_x;
-    game->ray.hit -= floor(game->ray.hit); //INT less or equal to hit_x
-    game->ray.hit = (int)(game->ray.hit * (double)TEXTURE_WIDTH);
+        hit_x = game->player.x + game->ray.perp_wall_dist * game->ray.dir_x;
+    hit_x -= floor(hit_x); //INT less or equal to hit (in x);
+    game->ray.hit = (int)(hit_x * (double)TEXTURE_WIDTH);
     if (game->ray.reached_wall == 0) // On a vertical wall, if the ray hits the left side
 		game->ray.hit = TEXTURE_WIDTH - game->ray.hit - 1; //Flip the texture coordinate if the wall hits the opposite side (negative)
 	if (game->ray.reached_wall == 3) // On a horizontal wall, if the ray hits the bottom side
 		game->ray.hit = TEXTURE_WIDTH - game->ray.hit - 1; //Flip the texture coordinate if the wall hits the opposite side (positive)
-    
-    //if something goes wrong try this instead!
-    //if (game->ray.side == 1 && game->ray.dir_x < 0)
-    //if (game->ray.side == 3 && game->ray.dir_y > 0)
 }
 
 static void draw_walls_data(t_game *game)
@@ -82,8 +79,6 @@ static void each_delta_step(t_game *game)
         game->map.checker.y += game->ray.step_y;
     }
     check_collision(game, game->map.checker);
-    printf("Value Checker x %i \n", game->map.checker.x);
-    //usleep(500);
 }
 
 /* DDA --> Digital Differential Analysis */

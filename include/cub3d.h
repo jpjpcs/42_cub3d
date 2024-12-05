@@ -218,8 +218,10 @@ int was_key_pressed(t_game *game);
 
 //Rendering
 void draw(t_game *game, int x);
+void draw_background(t_game *game);
 int raycast(t_game *game);
 void dda_calculations(t_game *game);
+void put_pixil(t_game *game, int x, int y, int color);
 
 //Cleanup - exit/error
 void exit_error (t_game *game, char *msg);

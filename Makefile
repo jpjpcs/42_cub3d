@@ -17,7 +17,7 @@ NAME = cub3d
 CC = cc
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror -g #-O3 #-g #-fsanitize=address #-pthread ead #-fsanitize=add
-INCLUDE = -I cub3d/include
+INCLUDE = -I include
 
 ############  Source files - Sources to objects ###########
 SRC_FILES = main.c parser/tokenizer.c parser/lexer.c parser/check_map.c \

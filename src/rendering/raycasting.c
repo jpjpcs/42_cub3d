@@ -12,6 +12,27 @@
 
 #include "../../include/cub3d.h"
 
+/* Upper half will be the ceiling COLOR, the bottom half will be the floor COLOR*/
+void draw_background(t_game *game)
+{
+    int x;
+    int y;
+
+    x = -1;
+    y = -1;
+    while (++y < SCREEN_HEIGHT)
+    {
+        while (++x < SCREEN_WIDTH)
+        {
+            if (y > SCREEN_HEIGHT / 2)
+                put_pixil(game, x, y, game->floor_color);
+            else
+                put_pixil(game, x, y, game->ceiling_color);
+        }
+        x = -1;
+    }
+}
+
 /* fabs() --> absolute value */
 /* delta_dist.y = fabs(1/ray_dir.y) */
 static void init_dda(t_game *game)
@@ -30,7 +51,7 @@ static void init_dda(t_game *game)
 
 static void init_raycast(t_game *game, int x)
 {
-    game->ray.camera_x = 2 * x / (float)game->pixels.width -1; //[-1, 1] // -1 is the leftmost side of the screen
+    game->ray.camera_x = 2 * x / (double)game->pixels.width -1; //[-1, 1] // -1 is the leftmost side of the screen
     game->ray.dir_x = game->player.dir_x + game->player.plane_x * game->ray.camera_x; //Ray direction in x (left to right based on camera_x value)
     game->ray.dir_y = game->player.dir_y + game->player.plane_y * game->ray.camera_x; //Ray direction in y
     game->ray.step_x = (game->ray.dir_x < 0) * -2 + 1; // -1 or 1 (left or right)
@@ -44,17 +65,18 @@ int raycast(t_game *game)
 {
     int horizontal_pixels;
     
-    game->pixels.width = SCREEN_WIDTH; // Temp
+    game->pixels.width = SCREEN_WIDTH;
     horizontal_pixels = 0;
     handle_keys(game);
+    draw_background(game);
     while (game->pixels.width > horizontal_pixels++)
     {
-        printf("-----------------------------------------------------------------------------------------------------\n");
         init_raycast(game, horizontal_pixels);
         init_dda(game);
         dda_calculations(game);
         draw(game, horizontal_pixels);
     }
-    mlx_put_image_to_window(game->mlx, game->win, game->pixels.img, 0, 0); // NOT SURE ABOUT THIS ONE
+    mlx_put_image_to_window(game->mlx, game->win, game->pixels.img, 0, 0); // Put image to window
+    sleep(5);
     return 0;
 }

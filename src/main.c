@@ -12,84 +12,8 @@
 
 #include "../include/cub3d.h"
 
-// game loops - raycasting loop and game loop.
-/* void	cub3d(t_game *game, char *file)
-{
-	(void)file;
-	
-} */
-
-
-//Instead of ft_bzero(game, sizeof(t_game));
-//I could also use memset or calloc or just game = (t_game){0};
-/* static void	init_game(t_game *game)
-{
-	setup_game(game);
-	setup_mlx(game);
-	setup_textures(game);
-}
-void	setup_mlx_and_textures(t_game *game)
-{
-	game->mlx = mlx_init();
-	if (!game->mlx)
-		exit_error(game, "Failed to initialize mlx.\n");
-	game->win = mlx_new_window(game->mlx, game->screen_width,
-			game->screen_height, "Cub3D");
-	if (!game->win)
-		exit_error(game, "Failed to create window.\n");
-	game->img = mlx_new_image(game->mlx, game->screen_width,
-			game->screen_height);
-	if (!game->img)
-		exit_error(game, "Failed to create image.\n");
-	game->addr = mlx_get_data_addr(game->img, &game->bits_per_pixel,
-			&game->line_length, &game->endian);
-	if (!game->addr)
-		exit_error(game, "Failed to get image address.\n");
-		
-	game->textures[0].img = mlx_xpm_file_to_image(game->mlx, N_XPM,
-			&game->textures[0].width, &game->textures[0].height);
-	game->textures[1].img = mlx_xpm_file_to_image(game->mlx, S_XPM,
-			&game->textures[1].width, &game->textures[1].height);
-	game->textures[2].img = mlx_xpm_file_to_image(game->mlx, E_XPM,
-			&game->textures[2].width, &game->textures[2].height);
-	game->textures[3].img = mlx_xpm_file_to_image(game->mlx, W_XPM,
-			&game->textures[3].width, &game->textures[3].height);
-			
-	if (!game->textures[0].img || !game->textures[1].img
-		|| !game->textures[2].img || !game->textures[3].img)
-		exit_error(game, "Failed to load textures.\n");
-		
-	game->textures[0].path = mlx_get_data_addr(game->textures[0].img,
-			&game->textures[0].bits_per_pixel, &game->textures[0].line_length,
-			&game->textures[0].endian);
-	game->textures[1].path = mlx_get_data_addr(game->textures[1].img,
-			&game->textures[1].bits_per_pixel, &game->textures[1].line_length,
-			&game->textures[1].endian);
-	game->textures[2].path = mlx_get_data_addr(game->textures[2].img,
-			&game->textures[2].bits_per_pixel, &game->textures[2].line_length,
-			&game->textures[2].endian);
-	game->textures[3].path = mlx_get_data_addr(game->textures[3].img,
-			&game->textures[3].bits_per_pixel, &game->textures[3].line_length,
-			&game->textures[3].endian);
-			
-	if (!game->textures[0].path || !game->textures[1].path
-		|| !game->textures[2].path || !game->textures[3].path)
-		exit_error(game, "Failed to get textures address.\n");
-} */
-
-/* void	print_game_atributes(t_game *game)
-{
-	printf("Ceiling color: %d\n", game->ceiling_color);
-	printf("Floor color: %d\n", game->floor_color);
-	printf("NO texture: %s\n", game->textures[0].path);
-	printf("SO texture: %s\n", game->textures[1].path);
-	printf("WE texture: %s\n", game->textures[2].path);
-	printf("EA texture: %s\n", game->textures[3].path);
-} */
-
 void init_draw(t_game *game)
 {
-    // Add this part to the "init" folder maybe?
     int i;
 
     i = -1;
@@ -98,7 +22,7 @@ void init_draw(t_game *game)
 		exit_error(game, "Couldn't initialize mlx");
     while (++i < 4) //Get the address of the textures
 	{
-		game->img_text[i].img = mlx_xpm_file_to_image(game->mlx, game->textures[i].addr,
+		game->img_text[i].img = mlx_xpm_file_to_image(game->mlx, game->textures[i],
 				&game->img_text[i].width, &game->img_text[i].height);
 		if (!game->img_text[i].img)
 			exit_error(game, "Failed to load texture");
@@ -230,8 +154,8 @@ int	main(int ac, char **av)
 	raycast(&game);
 	mlx_hook(game.win, 2, 1L << 0, &key_press, &game);
 	mlx_hook(game.win, 3, 1L << 1, &key_release, &game);
-	mlx_hook(game.win, 17, 1L << 17, exit_esc, &game);
-	mlx_loop_hook(game.mlx, raycast, &game);
+	mlx_hook(game.win, 17, 1L << 0, &exit_x, &game);
+	mlx_loop_hook(game.mlx, &raycast, &game);
 	mlx_loop(game.mlx);
 	return (0);
 }

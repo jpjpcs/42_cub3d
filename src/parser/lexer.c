@@ -13,6 +13,8 @@
 #include "../../include/cub3d.h"
 
 /*
+MAP EXAMPLE:
+
 F 220,100,0
 C 225,30,0
 NO ./textures/1.xpm
@@ -161,13 +163,13 @@ void	lexer(t_game *game)
 	while (game->tokens_params[++i])
 	{
 		if (ft_strncmp(game->tokens_params[i], "NO ", 3) == 0)
-			game->textures[0].addr = &(game->tokens_params[i][3]);
+			game->textures[0] = &(game->tokens_params[i][3]);
 		else if (ft_strncmp(game->tokens_params[i], "SO ", 3) == 0)
-			game->textures[1].addr = &(game->tokens_params[i][3]);
+			game->textures[1] = &(game->tokens_params[i][3]);
 		else if (ft_strncmp(game->tokens_params[i], "EA ", 3) == 0)
-			game->textures[2].addr = &(game->tokens_params[i][3]);
+			game->textures[2] = &(game->tokens_params[i][3]);
 		else if (ft_strncmp(game->tokens_params[i], "WE ", 3) == 0)
-			game->textures[3].addr = &(game->tokens_params[i][3]);
+			game->textures[3] = &(game->tokens_params[i][3]);
 		else if (ft_strncmp(game->tokens_params[i], "F ", 2) == 0)
 			parse_check_assign_colors(game, game->tokens_params[i] + 2, 'F');
 		else if (ft_strncmp(game->tokens_params[i], "C ", 2) == 0)

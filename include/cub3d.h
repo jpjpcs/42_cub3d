@@ -182,7 +182,7 @@ typedef struct s_game
     t_keys keys; // Keys controls: up, down, left, right arrows and ESC. 
     
     // Textures
-    t_texture textures[4]; // Texture for the 4 directions for walls and sprites: north, south, east, west, amd the player.
+    char *textures[4]; // Texture for the 4 directions for walls and sprites: north, south, east, west, amd the player.
     t_texture img_text[4];  // void *img inside t_texture struct is the Image to be rendered. The image that will be displayed on the window and that´s the background of the game.
     t_texture pixels; //HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
@@ -226,8 +226,9 @@ void put_pixil(t_game *game, int x, int y, int color);
 //Cleanup - exit/error
 void exit_error (t_game *game, char *msg);
 int	exit_game(t_game *game, char *msg);
-int	exit_esc(t_game *game);
+int	exit_x(t_game *game);
 void	free_game(t_game *game);
+
 
 #endif
 

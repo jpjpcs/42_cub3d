@@ -13,16 +13,11 @@
 #include "../include/cub3d.h"
 
 // game loops - raycasting loop and game loop.
-void	cub3d(t_game *game, char *file)
+/* void	cub3d(t_game *game, char *file)
 {
 	(void)file;
-	raycast(game);
-	//mlx_hook(game->win, 2, 1L << 0, &key_press, &game);
-	//mlx_hook(game->win, 3, 1L << 1, &key_release, &game);
-	//mlx_hook(game->win, 17, 1L << 17, exit_esc, &game);
-	//mlx_loop_hook(game->mlx, raycast, &game);
-	//mlx_loop(game->mlx);
-}
+	
+} */
 
 
 //Instead of ft_bzero(game, sizeof(t_game));
@@ -232,6 +227,11 @@ int	main(int ac, char **av)
 	game.floor_color = -1;
 	parser(&game, ac, av[1]);
 	init_draw(&game);
-	cub3d (&game, av[1]);
+	raycast(&game);
+	mlx_hook(game.win, 2, 1L << 0, &key_press, &game);
+	mlx_hook(game.win, 3, 1L << 1, &key_release, &game);
+	mlx_hook(game.win, 17, 1L << 17, exit_esc, &game);
+	mlx_loop_hook(game.mlx, raycast, &game);
+	mlx_loop(game.mlx);
 	return (0);
 }

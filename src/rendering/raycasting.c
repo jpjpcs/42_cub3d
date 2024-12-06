@@ -77,6 +77,6 @@ int raycast(t_game *game)
         draw(game, horizontal_pixels);
     }
     mlx_put_image_to_window(game->mlx, game->win, game->pixels.img, 0, 0); // Put image to window
-    sleep(5);
+    //sleep(5);
     return 0;
 }

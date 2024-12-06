@@ -46,8 +46,8 @@ void	set_spawn(t_game *game, int i, int j)
 					- (game->map.grid[i][j] == 'W');
 				game->player.dir_y = (game->map.grid[i][j] == 'S')
 					- (game->map.grid[i][j] == 'N');
-				game->player.plane_x = game->player.dir_x * FOV;
-				game->player.plane_y = (game->player.dir_y * FOV) * -1;
+				game->player.plane_x = (game->player.dir_y * FOV) * -1;
+				game->player.plane_y = game->player.dir_x * FOV;
 				game->map.grid[i][j] = FLOOR;
 			}
 			j++;

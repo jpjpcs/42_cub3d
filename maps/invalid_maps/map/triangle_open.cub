@@ -1,0 +1,13 @@
+NO ./include/assets/textures/eagle.xpm
+SO ./include/assets/textures/greystone.xpm
+EA ./include/assets/textures/purplestone.xpm
+WE ./include/assets/textures/red.xpm
+
+F 164,169,20
+C 153,204,255
+
+    11
+   1001
+  100000
+ 1000N001
+1111111111

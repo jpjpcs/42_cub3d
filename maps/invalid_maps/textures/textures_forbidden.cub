@@ -1,0 +1,21 @@
+NO textures/forbidden.xpm
+SO ./include/assets/textures/greystone.xpm
+EA ./include/assets/textures/purplestone.xpm
+WE ./include/assets/textures/red.xpm
+
+F 20,20,20
+C 200,200,200
+
+11111
+10001
+10S01
+10001
+10001
+10001
+11001
+10001
+10001
+10001
+10001
+10001
+11111

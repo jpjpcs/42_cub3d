@@ -12,7 +12,7 @@
 
 #include "../../include/cub3d.h"
 
-static void	free_textures(t_game *game)
+/* static void	free_textures(t_game *game)
 {
 	int	i;
 
@@ -20,7 +20,7 @@ static void	free_textures(t_game *game)
 	while (++i < 4)
 		if (game->textures[i])
 			free(game->textures[i]);
-}
+} */
 
 static void free_mlx(t_game *game)
 {
@@ -38,18 +38,31 @@ static void free_mlx(t_game *game)
 	free(game->mlx);
 }
 
-void	free_game(t_game *game)
+void free_tokens(t_game *game)
 {
-	if (game)
-	{
-		if (game->mlx)
-			free_mlx(game);
-		free_textures(game);
-		if (game->map.grid)
-			ft_free_array(game->map.grid);
-		if (game->tmp_map_grid)
-			free(game->tmp_map_grid);
-	}
+    int    i;
+
+    i = -1;
+    while (++i < 7)
+        if (game->tokens_params[i])
+            free(game->tokens_params[i]);
+}
+
+void    free_game(t_game *game)
+{
+    if (game)
+    {
+        if (game->mlx)
+            free_mlx(game);
+        //free_textures(game);
+        if (game->map.grid)
+            ft_free_array(game->map.grid);
+        if (game->tmp_map_grid)
+            free(game->tmp_map_grid);
+        if (game->tokens_params)
+            free_tokens(game);
+    }
+    exit(EXIT_SUCCESS);
 }
 
 int	exit_x(t_game *game)
@@ -64,5 +77,4 @@ void	exit_error(t_game *game, char *msg)
 	ft_putendl_fd("\nError: ", 2);
 	ft_putendl_fd(msg, 2);
 	free_game(game);
-	exit(EXIT_FAILURE);
 }

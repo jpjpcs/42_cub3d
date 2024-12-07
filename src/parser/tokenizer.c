@@ -72,7 +72,7 @@ void	process_line(t_game *game, char *line, int *tokens_index, int i)
 		old_map_grid = game->tmp_map_grid;
 		game->tmp_map_grid = ft_strjoin(old_map_grid, line);
 		free(old_map_grid);
-		free(trimmed_line);
+		//free(trimmed_line);
 		return ;
 	}
 	trimmed_line = ft_strtrim(line, " ");

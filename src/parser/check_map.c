@@ -98,18 +98,6 @@ void	check_empty_line_in_map(t_game *game)
 		return; // Mapa válido
 }
 
-void print_map(t_game *game)
-{
-    int i;
-
-    i = 0;
-    while (game->map.grid[i])
-    {
-        printf("%s\n", game->map.grid[i]);
-        i++;
-    }
-}
-
 void	parse_check_map(t_game *game)
 {
 	int	i;
@@ -128,5 +116,5 @@ void	parse_check_map(t_game *game)
 	game->map.grid = ft_split(game->tmp_map_grid, '\n');
 	if (!game->map.grid)
 		exit_error(game, "Memory allocation failed in ft_split.\n");
-	//print_map(game);
+	//free(game->tmp_map_grid);
 }
